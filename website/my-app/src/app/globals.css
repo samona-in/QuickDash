@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --cream: #f1ead4;
+  --ink: #17160f;
+  --accent: #2196f3;
+  --accent-deep: #1976d2;
+  --accent-soft: #e3f2fd;
+  --muted: #6b6650;
+  --line: #d9d0b4;
+  --card: #faf7ec;
+  --dark: #101210;
+  --dark-2: #1a1d18;
+  --dark-line: #333527;
+  --dark-muted: #9a9d86;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-card: var(--card);
+  --color-dark: var(--dark);
+  --color-dark-2: var(--dark-2);
+  --color-dark-line: var(--dark-line);
+  --color-dark-muted: var(--dark-muted);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-label);
+  --font-display: var(--font-display);
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Mono readout label — job-ticket / spec-sheet style */
+.eyebrow {
+  font-family: var(--font-label), monospace;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Warm graph-paper grid, the site's new background texture */
+.paper-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.paper-grid-dark {
+  background-image:
+    linear-gradient(to right, var(--dark-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--dark-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
