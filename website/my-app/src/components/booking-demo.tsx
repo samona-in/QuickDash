@@ -14,19 +14,17 @@ const SCREEN_MS = 3600;
 function ScreenIssue() {
   return (
     <div>
-      <p className="eyebrow text-dark-muted">AC Repair</p>
-      <p className="font-display mt-1 text-2xl font-bold text-cream">
-        What&apos;s wrong?
-      </p>
-      <div className="mt-4 space-y-2">
+      <p className="text-xs text-muted">AC Repair</p>
+      <p className="font-display mt-1 text-xl font-bold">What&apos;s wrong?</p>
+      <div className="mt-4 space-y-1.5">
         {["Not cooling", "Water leaking", "Making noise", "Installation"].map(
           (issue, i) => (
             <div
               key={issue}
-              className={`rounded-2xl border px-4 py-3 text-sm font-medium ${
+              className={`rounded-lg px-3.5 py-3 text-sm ${
                 i === 0
-                  ? "border-accent bg-accent/10 text-cream"
-                  : "border-dark-line text-dark-muted"
+                  ? "bg-accent-soft font-medium text-ink"
+                  : "bg-panel text-muted"
               }`}
             >
               {issue}
@@ -34,7 +32,7 @@ function ScreenIssue() {
           ),
         )}
       </div>
-      <div className="mt-4 rounded-full bg-accent py-3 text-center text-sm font-bold text-white">
+      <div className="mt-4 rounded-lg bg-accent py-2.5 text-center text-sm font-medium text-white">
         Continue
       </div>
     </div>
@@ -44,30 +42,28 @@ function ScreenIssue() {
 function ScreenPros() {
   return (
     <div>
-      <p className="text-lg font-semibold text-cream">Available nearby</p>
-      <div className="mt-4 space-y-3">
+      <p className="font-display text-lg font-bold">Available nearby</p>
+      <div className="mt-4 space-y-2.5">
         {professionals.slice(0, 2).map((pro, i) => (
           <div
             key={pro.name}
-            className={`rounded-2xl border p-4 ${
-              i === 0 ? "border-accent bg-dark-2" : "border-dark-line"
+            className={`rounded-xl p-4 ${
+              i === 0 ? "bg-accent-soft" : "bg-panel"
             }`}
           >
             <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-cream">{pro.name}</p>
-              <span className="inline-flex items-center gap-1 text-xs font-medium text-cream">
-                <Star className="size-3 fill-accent text-accent" />
+              <p className="text-sm font-medium">{pro.name}</p>
+              <span className="inline-flex items-center gap-1 text-xs">
+                <Star className="size-3 fill-tone-yellow text-tone-yellow" />
                 {pro.rating}
               </span>
             </div>
-            <p className="mt-1 text-xs text-dark-muted">
+            <p className="mt-1 text-xs text-muted">
               {pro.jobs} jobs · {pro.distanceKm} km · ₹{pro.visitFee} visit
             </p>
             <div
-              className={`mt-3 rounded-full py-2 text-center text-xs font-bold ${
-                i === 0
-                  ? "bg-accent text-white"
-                  : "border border-dark-line text-dark-muted"
+              className={`mt-3 rounded-lg py-2 text-center text-xs font-medium ${
+                i === 0 ? "bg-accent text-white" : "bg-card text-muted"
               }`}
             >
               Book
@@ -81,24 +77,24 @@ function ScreenPros() {
 
 function ScreenConfirmed() {
   return (
-    <div className="flex h-full flex-col">
-      <div className="flex items-center gap-2 text-accent">
-        <CheckCircle2 className="size-5" />
-        <p className="text-lg font-semibold text-cream">Booking confirmed</p>
+    <div>
+      <div className="flex items-center gap-2">
+        <CheckCircle2 className="size-5 text-tone-green" />
+        <p className="font-display text-lg font-bold">Booking confirmed</p>
       </div>
-      <div className="mt-5 rounded-2xl border border-dark-line bg-dark-2 p-4">
-        <p className="text-sm font-semibold text-cream">Ravi Kumar</p>
-        <p className="text-xs text-dark-muted">AC Technician</p>
+      <div className="mt-5 rounded-xl bg-panel p-4">
+        <p className="text-sm font-medium">Ravi Kumar</p>
+        <p className="text-xs text-muted">AC Technician</p>
         <div className="mt-4 flex items-end justify-between">
           <div>
-            <p className="text-xs text-dark-muted">Arriving in</p>
-            <p className="font-display text-4xl font-extrabold tracking-tight text-cream">
+            <p className="text-xs text-muted">Arriving in</p>
+            <p className="font-display text-3xl font-extrabold tracking-tight">
               14 min
             </p>
           </div>
-          <Navigation className="size-5 text-accent" />
+          <Navigation className="size-5 text-tone-green" />
         </div>
-        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-dark-line">
+        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-panel-2">
           <motion.div
             initial={{ width: "8%" }}
             animate={{ width: "55%" }}
@@ -107,7 +103,7 @@ function ScreenConfirmed() {
           />
         </div>
       </div>
-      <div className="mt-4 rounded-full border border-dark-line py-3 text-center text-sm font-semibold text-cream">
+      <div className="mt-4 rounded-lg bg-panel py-2.5 text-center text-sm font-medium">
         Track professional
       </div>
     </div>
@@ -117,33 +113,33 @@ function ScreenConfirmed() {
 function ScreenDone() {
   return (
     <div>
-      <p className="text-lg font-semibold text-cream">Job completed</p>
-      <div className="mt-4 rounded-2xl border border-dark-line bg-dark-2 p-4">
+      <p className="font-display text-lg font-bold">Job completed</p>
+      <div className="mt-4 rounded-xl bg-panel p-4">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-dark-muted">AC Repair</span>
-          <span className="font-display text-lg font-bold text-cream">₹649</span>
+          <span className="text-muted">AC Repair</span>
+          <span className="font-display text-lg font-bold">₹649</span>
         </div>
-        <div className="mt-2 flex items-center justify-between text-xs text-dark-muted">
+        <div className="mt-2 flex items-center justify-between text-xs text-muted">
           <span>Paid securely</span>
-          <CheckCircle2 className="size-4 text-accent" />
+          <CheckCircle2 className="size-4 text-tone-green" />
         </div>
       </div>
-      <p className="mt-5 text-center text-sm text-dark-muted">
+      <p className="mt-6 text-center text-sm text-muted">
         How was your experience?
       </p>
-      <div className="mt-2 flex justify-center gap-1.5">
+      <div className="mt-3 flex justify-center gap-2">
         {[0, 1, 2, 3, 4].map((i) => (
           <motion.span
             key={i}
             initial={{ opacity: 0, scale: 0.4 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 + i * 0.12 }}
+            transition={{ delay: 0.12 + i * 0.06, duration: 0.25 }}
           >
-            <Star className="size-6 fill-accent text-accent" />
+            <Star className="size-7 fill-tone-yellow text-tone-yellow" />
           </motion.span>
         ))}
       </div>
-      <div className="mt-5 rounded-full bg-accent py-3 text-center text-sm font-bold text-white">
+      <div className="mt-6 rounded-lg bg-accent py-2.5 text-center text-sm font-medium text-white">
         Submit review
       </div>
     </div>
@@ -175,16 +171,15 @@ export function BookingDemo() {
   }, [paused, reduce]);
 
   return (
-    <section className="bg-dark px-5 py-24 sm:px-8 lg:py-32">
-      <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2">
+    <section className="px-5 py-20 sm:px-8 lg:py-28">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
         <div>
           <SectionHeading
-            dark
             eyebrow="The experience"
             title="Need an AC repair?"
             lede="Describe the problem, pick someone nearby, track them to your door, and pay when it's done. The whole thing, in four screens."
           />
-          <div className="mt-10 flex flex-col gap-2">
+          <div className="mt-8 flex flex-col gap-1">
             {screens.map((screen, i) => (
               <button
                 key={screen.label}
@@ -193,28 +188,26 @@ export function BookingDemo() {
                   setActive(i);
                   setPaused(true);
                 }}
-                className={`group flex items-center gap-4 rounded-2xl border px-4 py-3 text-left transition-colors ${
-                  active === i
-                    ? "border-dark-line bg-dark-2"
-                    : "border-transparent hover:bg-dark-2/50"
+                className={`flex items-center gap-4 rounded-lg px-4 py-3 text-left transition-colors ${
+                  active === i ? "bg-panel" : "hover:bg-panel/60"
                 }`}
               >
                 <span
-                  className={`eyebrow ${
-                    active === i ? "text-accent" : "text-dark-muted"
+                  className={`text-sm ${
+                    active === i ? "text-accent-deep" : "text-muted"
                   }`}
                 >
                   0{i + 1}
                 </span>
                 <span
-                  className={`text-[15px] font-semibold ${
-                    active === i ? "text-cream" : "text-dark-muted"
+                  className={`text-[15px] ${
+                    active === i ? "font-medium text-ink" : "text-muted"
                   }`}
                 >
                   {screen.label}
                 </span>
                 {active === i && !paused && !reduce && (
-                  <span className="ml-auto h-0.5 w-16 overflow-hidden rounded-full bg-dark-line">
+                  <span className="ml-auto h-0.5 w-16 overflow-hidden rounded-full bg-panel-2">
                     <motion.span
                       key={active}
                       initial={{ width: "0%" }}
@@ -229,23 +222,97 @@ export function BookingDemo() {
           </div>
         </div>
 
-        {/* Phone frame */}
-        <div className="mx-auto w-full max-w-[340px]">
-          <div className="rounded-[2.4rem] border border-dark-line bg-dark-2/60 p-3 shadow-2xl shadow-accent/20">
-            <div className="relative h-[560px] overflow-hidden rounded-[1.9rem] border border-dark-line bg-dark p-5">
-              <div className="mx-auto mb-5 h-1.5 w-16 rounded-full bg-dark-line" />
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={active}
-                  initial={{ opacity: 0, x: 32 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -24 }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="h-full"
-                >
-                  <ActiveScreen />
-                </motion.div>
-              </AnimatePresence>
+        {/* iPhone */}
+        <div className="relative mx-auto w-[344px] max-w-full">
+          {/* side buttons */}
+          <span className="absolute top-[104px] -left-[2px] h-7 w-[3px] rounded-l-sm bg-[#2b2b2d]" />
+          <span className="absolute top-[150px] -left-[2px] h-11 w-[3px] rounded-l-sm bg-[#2b2b2d]" />
+          <span className="absolute top-[206px] -left-[2px] h-11 w-[3px] rounded-l-sm bg-[#2b2b2d]" />
+          <span className="absolute top-[168px] -right-[2px] h-16 w-[3px] rounded-r-sm bg-[#2b2b2d]" />
+
+          {/* titanium band → black bezel → screen */}
+          <div className="rounded-[3.1rem] bg-gradient-to-b from-[#55555a] via-[#25252a] to-[#55555a] p-[3px] shadow-[0_30px_60px_-20px_rgba(25,25,24,0.45)]">
+            <div className="rounded-[2.95rem] bg-black p-[9px]">
+              <div className="relative h-[660px] overflow-hidden rounded-[2.4rem] bg-card">
+                {/* Dynamic Island */}
+                <div className="absolute top-[9px] left-1/2 z-20 h-[27px] w-[92px] -translate-x-1/2 rounded-full bg-black" />
+
+                {/* status bar */}
+                <div className="relative z-10 flex items-center justify-between px-6 pt-3.5 text-[12px] font-semibold text-ink">
+                  <span className="tracking-tight">9:41</span>
+                  <span className="flex items-center gap-1.5">
+                    {/* signal */}
+                    <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor">
+                      <rect x="0" y="7.5" width="3" height="3.5" rx="1" />
+                      <rect x="4.6" y="5.5" width="3" height="5.5" rx="1" />
+                      <rect x="9.2" y="3" width="3" height="8" rx="1" />
+                      <rect x="13.8" y="0" width="3" height="11" rx="1" />
+                    </svg>
+                    {/* wifi */}
+                    <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor">
+                      <path d="M8 10.6l2-2.4a3 3 0 0 0-4 0l2 2.4z" />
+                      <path
+                        d="M3.6 5.6a6.6 6.6 0 0 1 8.8 0"
+                        stroke="currentColor"
+                        strokeWidth="1.7"
+                        fill="none"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M1.2 3a10 10 0 0 1 13.6 0"
+                        stroke="currentColor"
+                        strokeWidth="1.7"
+                        fill="none"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    {/* battery */}
+                    <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+                      <rect
+                        x="0.6"
+                        y="0.6"
+                        width="21"
+                        height="10.8"
+                        rx="3"
+                        stroke="currentColor"
+                        strokeOpacity="0.4"
+                        strokeWidth="1.1"
+                      />
+                      <rect
+                        x="2.2"
+                        y="2.2"
+                        width="15"
+                        height="7.6"
+                        rx="1.8"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M23.2 4.2v3.6a2 2 0 0 0 0-3.6z"
+                        fill="currentColor"
+                        fillOpacity="0.4"
+                      />
+                    </svg>
+                  </span>
+                </div>
+
+                {/* app content */}
+                <div className="px-5 pt-7">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={active}
+                      initial={{ opacity: 0, x: 24 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -18 }}
+                      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <ActiveScreen />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {/* home indicator */}
+                <div className="absolute bottom-2 left-1/2 h-[5px] w-[126px] -translate-x-1/2 rounded-full bg-ink/25" />
+              </div>
             </div>
           </div>
         </div>

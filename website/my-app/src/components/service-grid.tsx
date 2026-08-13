@@ -1,71 +1,80 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
-
 import { serviceCategories, type ServiceCategory } from "@/lib/data";
-import { Reveal, SectionHeading } from "@/components/ui/primitives";
+import { ArrowButton, Reveal, SectionHeading } from "@/components/ui/primitives";
+import { Doodle, type DoodleName } from "@/components/ui/doodles";
+
+/** One Notion hue per category, the way board columns are colored.
+ *  `accent` deliberately contrasts with `fill` so the spot art reads. */
+const palette = [
+  { fill: "bg-tint-blue", tone: "text-tone-blue", accent: "#f0b429" },
+  { fill: "bg-tint-green", tone: "text-tone-green", accent: "#e8503a" },
+  { fill: "bg-tint-orange", tone: "text-tone-orange", accent: "#097fe8" },
+  { fill: "bg-tint-purple", tone: "text-tone-purple", accent: "#f0b429" },
+];
 
 function CategoryCard({
   category,
-  className = "",
+  color,
 }: {
   category: ServiceCategory;
-  className?: string;
+  color: (typeof palette)[number];
 }) {
-  const Icon = category.icon;
   return (
     <a
       href="#cta"
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border-2 border-ink bg-card p-6 shadow-[0_5px_0_0_var(--ink)] transition-all duration-150 ease-out hover:translate-y-[3px] hover:shadow-none sm:p-7 ${className}`}
+      className={`group flex flex-col rounded-2xl ${color.fill} p-7`}
     >
-      <div className="flex items-start justify-between">
-        <span className="grid size-11 place-items-center rounded-2xl border-2 border-ink bg-accent-soft text-accent-deep transition-colors duration-200 group-hover:bg-accent group-hover:text-white">
-          <Icon className="size-5" />
-        </span>
-        <ArrowUpRight className="size-5 text-muted transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+      <div className="flex items-start justify-between gap-6">
+        <Doodle
+          name={category.title as DoodleName}
+          accent={color.accent}
+          className="size-16 shrink-0"
+        />
+        <ArrowButton />
       </div>
 
-      <div className="mt-10">
-        <h3 className="font-display text-2xl font-bold tracking-tight">
-          {category.title}
-        </h3>
-        <p className="mt-1 text-sm text-muted">{category.tagline}</p>
-        <ul className="mt-4 flex flex-wrap gap-1.5">
-          {category.items.map((item) => (
-            <li
-              key={item.label}
-              className="rounded-full border border-line bg-cream px-3 py-1 text-xs font-medium text-ink/80 transition-colors duration-200 group-hover:border-accent/40"
-            >
-              {item.label}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <p className={`mt-5 flex items-center gap-2 text-[15px] ${color.tone}`}>
+        <span className="dot" />
+        {category.title}
+      </p>
+      <h3 className="font-display mt-1 text-2xl leading-tight font-bold tracking-[-0.02em] text-ink">
+        {category.tagline}
+      </h3>
+
+      <ul className="mt-6 flex flex-wrap gap-1.5">
+        {category.items.map((item) => (
+          <li
+            key={item.label}
+            className="rounded-md bg-card/80 px-2.5 py-1 text-[13px] text-muted"
+          >
+            {item.label}
+          </li>
+        ))}
+      </ul>
     </a>
   );
 }
 
 export function ServiceGrid() {
-  const [repairs, home, auto, everyday] = serviceCategories;
   return (
-    <section id="services" className="scroll-mt-16 px-5 py-24 sm:px-8 lg:py-32">
-      <div className="mx-auto max-w-7xl">
+    <section id="services" className="scroll-mt-24 px-5 py-20 sm:px-8 lg:py-28">
+      <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Services"
           title="Whatever needs doing, there's someone for it."
           lede="From everyday repairs to home services and vehicle care, find skilled professionals nearby."
         />
 
-        {/* Asymmetric bento: wide card up top-left, tall card on the right */}
-        <Reveal delay={0.15} className="mt-14">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
-            <CategoryCard
-              category={repairs}
-              className="sm:col-span-2 lg:col-span-2"
-            />
-            <CategoryCard category={home} className="lg:row-span-2" />
-            <CategoryCard category={auto} />
-            <CategoryCard category={everyday} />
+        <Reveal delay={0.1} className="mt-12">
+          <div className="grid gap-3 sm:grid-cols-2">
+            {serviceCategories.map((category, i) => (
+              <CategoryCard
+                key={category.title}
+                category={category}
+                color={palette[i % palette.length]}
+              />
+            ))}
           </div>
         </Reveal>
       </div>

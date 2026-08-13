@@ -35,38 +35,31 @@ function CompareCard({
 }) {
   return (
     <div
-      className={`rounded-3xl border-2 p-7 ${
-        highlight
-          ? "border-ink bg-dark text-cream shadow-[0_6px_0_0_var(--accent)]"
-          : "border-ink/15 bg-card text-ink"
+      className={`h-full rounded-2xl p-7 ${
+        highlight ? "bg-tint-green" : "bg-card"
       }`}
     >
       <p
-        className={`eyebrow ${highlight ? "text-accent" : "text-muted"}`}
-      >
-        {highlight ? "With QuickDash" : "The usual way"}
-      </p>
-      <h3 className="font-display mt-2 text-2xl font-bold tracking-tight">
-        {data.title}
-      </h3>
-      <p
-        className={`mt-2 text-sm leading-relaxed ${
-          highlight ? "text-dark-muted" : "text-muted"
+        className={`flex items-center gap-2 text-[15px] ${
+          highlight ? "text-tone-green" : "text-tone-red"
         }`}
       >
-        {data.lede}
+        <span className="dot" />
+        {highlight ? "With QuickDash" : "The usual way"}
       </p>
+      <h3 className="font-display mt-1 text-2xl leading-tight font-bold tracking-[-0.02em]">
+        {data.title}
+      </h3>
+      <p className="mt-2 text-[15px] leading-relaxed text-muted">{data.lede}</p>
 
       <ul className="mt-6 space-y-3">
         {data.points.map((point) => (
-          <li key={point.label} className="flex items-center gap-3 text-sm">
+          <li key={point.label} className="flex items-center gap-3 text-[15px]">
             <span
               className={`grid size-5 shrink-0 place-items-center rounded-full ${
                 point.has
-                  ? "bg-accent text-white"
-                  : highlight
-                    ? "bg-dark-line text-dark-muted"
-                    : "bg-line text-muted"
+                  ? "bg-tone-green text-white"
+                  : "bg-tint-red text-tone-red"
               }`}
             >
               {point.has ? (
@@ -75,17 +68,7 @@ function CompareCard({
                 <X className="size-3" strokeWidth={3} />
               )}
             </span>
-            <span
-              className={
-                point.has
-                  ? highlight
-                    ? "text-cream"
-                    : "text-ink"
-                  : highlight
-                    ? "text-dark-muted"
-                    : "text-muted"
-              }
-            >
+            <span className={point.has ? "text-ink" : "text-muted"}>
               {point.label}
             </span>
           </li>
@@ -97,7 +80,7 @@ function CompareCard({
 
 export function WhySection() {
   return (
-    <section className="px-5 py-24 sm:px-8 lg:py-32">
+    <section className="bg-panel px-5 py-20 sm:px-8 lg:py-28">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
           eyebrow="Why we built this"
@@ -105,11 +88,11 @@ export function WhySection() {
           lede="Everyone knows the drill: asking around, dialing numbers, waiting. We replaced the whole chain with one tap."
         />
 
-        <div className="mt-14 grid gap-4 sm:grid-cols-2">
+        <div className="mt-12 grid gap-3 sm:grid-cols-2">
           <Reveal>
             <CompareCard data={oldWay} highlight={false} />
           </Reveal>
-          <Reveal delay={0.12}>
+          <Reveal delay={0.1}>
             <CompareCard data={newWay} highlight />
           </Reveal>
         </div>

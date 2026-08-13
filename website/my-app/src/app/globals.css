@@ -1,22 +1,55 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #f1ead4;
-  --ink: #17160f;
-  --accent: #2196f3;
-  --accent-deep: #1976d2;
-  --accent-soft: #e3f2fd;
-  --muted: #6b6650;
-  --line: #d9d0b4;
-  --card: #faf7ec;
-  --dark: #101210;
-  --dark-2: #1a1d18;
-  --dark-line: #333527;
-  --dark-muted: #9a9d86;
+  /* Page + surfaces */
+  --cream: #ffffff;
+  --panel: #f7f6f4;
+  --panel-2: #efeeea;
+  --card: #ffffff;
+
+  /* Type */
+  --ink: #191918;
+  --muted: #5f5e5b;
+  --line: #e6e4e0;
+
+  /* Brand accent — used sparingly, on buttons and links only */
+  --accent: #097fe8;
+  --accent-deep: #0663b6;
+  --accent-soft: #d5e8fc;
+
+  /* Notion's color system — a soft fill and a solid tone for each hue.
+     Fills sit behind content blocks; tones color dots, icons and labels. */
+  --tint-gray: #e8e8e5;
+  --tint-brown: #f0dfd5;
+  --tint-orange: #fcdcbb;
+  --tint-yellow: #fbeab4;
+  --tint-green: #cfe8d5;
+  --tint-blue: #cee3fb;
+  --tint-purple: #e3d5f6;
+  --tint-pink: #f9d5e6;
+  --tint-red: #fbd3d1;
+
+  --tone-gray: #56554f;
+  --tone-brown: #82523b;
+  --tone-orange: #ad5300;
+  --tone-yellow: #8a6000;
+  --tone-green: #1f6340;
+  --tone-blue: #10598c;
+  --tone-purple: #643a99;
+  --tone-pink: #a12667;
+  --tone-red: #b82722;
+
+  /* Retained for the one dark surface (booking demo device) */
+  --dark: #191918;
+  --dark-2: #242422;
+  --dark-line: #35342f;
+  --dark-muted: #9b9a95;
 }
 
 @theme inline {
   --color-cream: var(--cream);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
   --color-ink: var(--ink);
   --color-accent: var(--accent);
   --color-accent-deep: var(--accent-deep);
@@ -28,6 +61,24 @@
   --color-dark-2: var(--dark-2);
   --color-dark-line: var(--dark-line);
   --color-dark-muted: var(--dark-muted);
+  --color-tint-gray: var(--tint-gray);
+  --color-tint-brown: var(--tint-brown);
+  --color-tint-orange: var(--tint-orange);
+  --color-tint-yellow: var(--tint-yellow);
+  --color-tint-green: var(--tint-green);
+  --color-tint-blue: var(--tint-blue);
+  --color-tint-purple: var(--tint-purple);
+  --color-tint-pink: var(--tint-pink);
+  --color-tint-red: var(--tint-red);
+  --color-tone-gray: var(--tone-gray);
+  --color-tone-brown: var(--tone-brown);
+  --color-tone-orange: var(--tone-orange);
+  --color-tone-yellow: var(--tone-yellow);
+  --color-tone-green: var(--tone-green);
+  --color-tone-blue: var(--tone-blue);
+  --color-tone-purple: var(--tone-purple);
+  --color-tone-pink: var(--tone-pink);
+  --color-tone-red: var(--tone-red);
   --font-sans: var(--font-body);
   --font-mono: var(--font-label);
   --font-display: var(--font-display);
@@ -54,26 +105,26 @@ html {
   }
 }
 
-/* Mono readout label — job-ticket / spec-sheet style */
+/* Quiet card/section label — small, grey, sentence case. */
 .eyebrow {
-  font-family: var(--font-label), monospace;
-  font-weight: 500;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--muted);
 }
 
-/* Warm graph-paper grid, the site's new background texture */
-.paper-grid {
-  background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: 32px 32px;
+/* Pastel highlight behind a word in a headline — Notion's signature move. */
+.marker {
+  display: inline-block;
+  padding: 0 0.3em 0.06em;
+  border-radius: 999px;
+  background: var(--tint-yellow);
 }
 
-.paper-grid-dark {
-  background-image:
-    linear-gradient(to right, var(--dark-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--dark-line) 1px, transparent 1px);
-  background-size: 32px 32px;
+/* Notion's colored status dot, as used on database tags and board columns. */
+.dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: currentColor;
 }
