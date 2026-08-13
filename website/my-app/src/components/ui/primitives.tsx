@@ -11,7 +11,7 @@ import { BRAND } from "@/lib/data";
 export function Logo({ dark = false }: { dark?: boolean }) {
   return (
     <span
-      className={`font-display text-xl font-extrabold tracking-tight ${
+      className={`font-display text-[19px] font-extrabold tracking-tight ${
         dark ? "text-cream" : "text-ink"
       }`}
     >
@@ -37,20 +37,28 @@ export function CTAButton({
   className = "",
 }: ButtonProps) {
   const base =
-    "group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-bold transition-all duration-150 ease-out active:translate-y-[3px] active:shadow-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+    "inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-[15px] font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
   const variants = {
-    primary:
-      "bg-accent text-white shadow-[0_3px_0_0_var(--accent-deep)] hover:brightness-110",
-    secondary:
-      "border-2 border-ink/15 bg-card text-ink shadow-[0_3px_0_0_var(--line)] hover:border-ink/30",
-    "ghost-dark":
-      "border-2 border-white/20 bg-white/5 text-white shadow-[0_3px_0_0_rgba(255,255,255,0.15)] backdrop-blur hover:bg-white/10",
+    primary: "bg-accent text-white hover:bg-accent-deep",
+    secondary: "bg-accent-soft text-accent-deep hover:bg-accent-soft/70",
+    "ghost-dark": "bg-white/10 text-white hover:bg-white/15",
   };
   return (
     <a href={href} className={`${base} ${variants[variant]} ${className}`}>
       {children}
-      <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
     </a>
+  );
+}
+
+/** Notion's signature affordance: a solid black circle with an arrow. */
+export function ArrowButton({ className = "" }: { className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={`grid size-9 shrink-0 place-items-center rounded-full bg-ink text-white transition-transform duration-200 ease-out group-hover:scale-105 ${className}`}
+    >
+      <ArrowRight className="size-4" />
+    </span>
   );
 }
 
@@ -69,10 +77,10 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 28 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
@@ -88,7 +96,7 @@ export function SectionHeading({
   dark = false,
   align = "left",
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: ReactNode;
   lede?: string;
   dark?: boolean;
@@ -98,13 +106,11 @@ export function SectionHeading({
     <Reveal
       className={`max-w-3xl ${align === "center" ? "mx-auto text-center" : ""}`}
     >
-      <p
-        className={`eyebrow ${dark ? "text-accent" : "text-accent-deep"} ${align === "center" ? "text-center" : ""}`}
-      >
-        {eyebrow}
-      </p>
+      {eyebrow && (
+        <p className={`eyebrow ${dark ? "text-dark-muted" : ""}`}>{eyebrow}</p>
+      )}
       <h2
-        className={`font-display mt-4 text-4xl leading-[1.05] font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl ${
+        className={`font-display mt-2 text-[2.25rem] leading-[1.08] font-extrabold tracking-[-0.02em] text-balance sm:text-5xl lg:text-[3.5rem] ${
           dark ? "text-cream" : "text-ink"
         }`}
       >
@@ -112,7 +118,7 @@ export function SectionHeading({
       </h2>
       {lede && (
         <p
-          className={`mt-5 max-w-xl text-lg leading-relaxed ${
+          className={`mt-4 max-w-xl text-[17px] leading-relaxed ${
             dark ? "text-dark-muted" : "text-muted"
           } ${align === "center" ? "mx-auto" : ""}`}
         >
@@ -128,7 +134,7 @@ export function SectionHeading({
 export function Stars({ value }: { value: number }) {
   return (
     <span className="inline-flex items-center gap-1 text-sm font-semibold">
-      <svg viewBox="0 0 20 20" className="size-3.5 fill-accent" aria-hidden>
+      <svg viewBox="0 0 20 20" className="size-3.5 fill-tone-yellow" aria-hidden>
         <path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9L10 1.5z" />
       </svg>
       {value.toFixed(1)}
