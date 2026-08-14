@@ -111,9 +111,9 @@ function VisualProfile() {
           [`${pro.jobs}`, "jobs"],
           [`${pro.years} yrs`, "experience"],
         ].map(([value, label]) => (
-          <div key={label} className="rounded-lg bg-panel px-2 py-3">
+          <div key={label} className="rounded-lg bg-panel px-1.5 py-3 sm:px-2">
             <p className="font-display font-bold">{value}</p>
-            <p className="text-[11px] text-muted">{label}</p>
+            <p className="text-[10px] text-muted sm:text-[11px]">{label}</p>
           </div>
         ))}
       </div>
@@ -216,7 +216,7 @@ export function HowItWorks() {
             const Visual = step.Visual;
             return (
               <Reveal key={step.number} delay={i * 0.06}>
-                <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-card p-7">
+                <div className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-card p-7">
                   <p
                     className={`flex items-center gap-2 text-[15px] ${step.tone}`}
                   >
@@ -233,6 +233,8 @@ export function HowItWorks() {
                   <div className="mt-6 -mb-16">
                     <Visual />
                   </div>
+                  {/* fade the cropped mockup into the card edge */}
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-card to-transparent" />
                 </div>
               </Reveal>
             );

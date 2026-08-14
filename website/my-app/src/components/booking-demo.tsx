@@ -173,7 +173,7 @@ export function BookingDemo() {
   return (
     <section className="px-5 py-20 sm:px-8 lg:py-28">
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
-        <div>
+        <div className="min-w-0">
           <SectionHeading
             eyebrow="The experience"
             title="Need an AC repair?"
@@ -222,8 +222,8 @@ export function BookingDemo() {
           </div>
         </div>
 
-        {/* iPhone */}
-        <div className="relative mx-auto w-[344px] max-w-full">
+        {/* iPhone — w-full so a fixed width can't inflate the grid track */}
+        <div className="relative mx-auto w-full max-w-[272px] sm:max-w-[344px]">
           {/* side buttons */}
           <span className="absolute top-[104px] -left-[2px] h-7 w-[3px] rounded-l-sm bg-[#2b2b2d]" />
           <span className="absolute top-[150px] -left-[2px] h-11 w-[3px] rounded-l-sm bg-[#2b2b2d]" />
@@ -233,12 +233,13 @@ export function BookingDemo() {
           {/* titanium band → black bezel → screen */}
           <div className="rounded-[3.1rem] bg-gradient-to-b from-[#55555a] via-[#25252a] to-[#55555a] p-[3px] shadow-[0_30px_60px_-20px_rgba(25,25,24,0.45)]">
             <div className="rounded-[2.95rem] bg-black p-[9px]">
-              <div className="relative h-[660px] overflow-hidden rounded-[2.4rem] bg-card">
+              {/* iPhone 15 screen ratio, so height scales with the frame */}
+              <div className="relative aspect-[41/89] overflow-hidden rounded-[2.4rem] bg-card">
                 {/* Dynamic Island */}
-                <div className="absolute top-[9px] left-1/2 z-20 h-[27px] w-[92px] -translate-x-1/2 rounded-full bg-black" />
+                <div className="absolute top-[9px] left-1/2 z-20 h-[22px] w-[70px] -translate-x-1/2 rounded-full bg-black sm:h-[27px] sm:w-[92px]" />
 
                 {/* status bar */}
-                <div className="relative z-10 flex items-center justify-between px-6 pt-3.5 text-[12px] font-semibold text-ink">
+                <div className="relative z-10 flex items-center justify-between px-4 pt-3 text-[11px] font-semibold text-ink sm:px-6 sm:pt-3.5 sm:text-[12px]">
                   <span className="tracking-tight">9:41</span>
                   <span className="flex items-center gap-1.5">
                     {/* signal */}
@@ -296,7 +297,7 @@ export function BookingDemo() {
                 </div>
 
                 {/* app content */}
-                <div className="px-5 pt-7">
+                <div className="px-4 pt-6 sm:px-5 sm:pt-7">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={active}

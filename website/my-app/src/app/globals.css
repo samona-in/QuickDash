@@ -120,6 +120,15 @@ html {
   background: var(--tint-yellow);
 }
 
+/* Swipeable strips (mockup tab bars) without a visible scrollbar. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Notion's colored status dot, as used on database tags and board columns. */
 .dot {
   display: inline-block;

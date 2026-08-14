@@ -335,20 +335,21 @@ export function Hero() {
       >
         <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-[0_20px_50px_-24px_rgba(25,25,24,0.2)]">
           {/* window chrome */}
-          <div className="flex items-center gap-4 border-b border-line bg-panel px-4 py-2.5">
-            <div className="flex gap-2">
+          <div className="flex items-center gap-2.5 border-b border-line bg-panel px-3 py-2.5 sm:gap-4 sm:px-4">
+            <div className="flex shrink-0 gap-1.5 sm:gap-2">
               <span className="size-3 rounded-full bg-[#ff5f57]" />
               <span className="size-3 rounded-full bg-[#febc2e]" />
               <span className="size-3 rounded-full bg-[#28c840]" />
             </div>
-            <div className="flex gap-1">
+            {/* scrollable on narrow screens so every tab stays reachable */}
+            <div className="no-scrollbar flex min-w-0 gap-1 overflow-x-auto">
               {tabs.map((t, i) => (
                 <button
                   key={t}
                   type="button"
                   onClick={() => setTab(i)}
                   aria-pressed={tab === i}
-                  className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                  className={`shrink-0 rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap transition-colors sm:px-3 ${
                     tab === i
                       ? "bg-card text-ink shadow-sm"
                       : "text-muted hover:text-ink"
