@@ -9,6 +9,7 @@ create table if not exists public.waitlist (
   professions text[] null
 );
 
+
 -- 2) Allow anonymous inserts (the form is public). No select/update/delete for anon.
 alter table public.waitlist enable row level security;
 
