@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 
 /** Single place to swap in the final brand name. */
-export const BRAND = "QuickDash";
+export const BRAND = "Samona";
 
 export type ServiceCategory = {
   title: string;

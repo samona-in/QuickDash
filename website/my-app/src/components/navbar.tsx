@@ -28,7 +28,7 @@ export function Navbar() {
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="sticky top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4"
+      className="sticky top-0 z-50 px-5 pt-3 sm:px-8 sm:pt-4"
     >
       <nav
         className={`relative mx-auto flex h-14 max-w-5xl items-center rounded-full border border-line bg-card/75 px-3 backdrop-blur-xl transition-shadow duration-300 sm:px-5 ${
@@ -55,7 +55,7 @@ export function Navbar() {
 
         <div className="ml-auto hidden items-center gap-4 md:flex">
           <a
-            href="#waitlist"
+            href="/join"
             className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ink/90"
           >
             Join waiting list
@@ -95,7 +95,7 @@ export function Navbar() {
               ))}
               <div className="mt-1 flex gap-2 border-t border-line pt-3">
                 <a
-                  href="#waitlist"
+                  href="/join"
                   onClick={() => setOpen(false)}
                   className="flex-1 rounded-full bg-ink py-2.5 text-center text-sm font-medium text-white"
                 >

@@ -34,7 +34,7 @@ function ProfessionSelect({
     : "Select services";
 
   return (
-    <div ref={ref} className="relative mt-3">
+    <div ref={ref} className="relative mt-0">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
@@ -114,7 +114,7 @@ export function Waitlist() {
         id="waitlist"
         className="px-5 py-24 sm:px-8 lg:py-32"
       >
-        <div className="mx-auto max-w-xl rounded-3xl border-2 border-ink bg-card p-10 text-center shadow-[0_6px_0_0_var(--ink)]">
+          <div className="mx-auto max-w-xl rounded-3xl border-2 border-ink bg-card p-8 text-center shadow-[0_6px_0_0_var(--ink)] sm:p-10">
           <CheckCircle2 className="mx-auto size-12 text-accent" />
           <h2 className="font-display mt-5 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
             You&apos;re on the list.
@@ -126,7 +126,7 @@ export function Waitlist() {
   }
 
   return (
-    <section id="waitlist" className="paper-grid px-5 py-24 sm:px-8 lg:py-32">
+    <section id="waitlist" className="paper-grid px-5 py-10 sm:px-8 sm:py-10 lg:py-10">
       <div className="mx-auto max-w-xl">
         <div className="text-center">
           <p className="eyebrow text-accent-deep">Early access</p>
@@ -134,8 +134,7 @@ export function Waitlist() {
             Join the waitlist.
           </h2>
           <p className="mx-auto mt-4 max-w-md text-lg leading-relaxed text-muted">
-            We&apos;re launching in Visakhapatnam first. Drop your details and
-            we&apos;ll let you know the moment we go live.
+            Drop your details and we&apos;ll let you know the moment we go live.
           </p>
         </div>
 
@@ -259,7 +258,7 @@ export function Waitlist() {
           <button
             type="submit"
             disabled={pending}
-            className="group mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-accent py-4 text-[15px] font-bold text-white shadow-[0_3px_0_0_var(--accent-deep)] transition-all active:translate-y-[3px] active:shadow-none disabled:opacity-70"
+            className="group mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-ink py-4 text-[15px] font-bold text-white shadow-[0_4px_0_0_rgba(25,25,24,0.25)] transition-all hover:-translate-y-0.5 hover:bg-ink/90 hover:shadow-[0_6px_0_0_rgba(25,25,24,0.25)] active:translate-y-[4px] active:shadow-none disabled:opacity-70"
           >
             {pending ? (
               <>

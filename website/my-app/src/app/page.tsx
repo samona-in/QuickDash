@@ -9,7 +9,6 @@ import { ProfessionalSection } from "@/components/professional-section";
 import { SplitCTA } from "@/components/split-cta";
 import { VisionSection } from "@/components/vision-section";
 import { FinalCTA } from "@/components/final-cta";
-import { Waitlist } from "@/components/waitlist";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
@@ -27,7 +26,6 @@ export default function Home() {
         <SplitCTA />
         <VisionSection />
         <FinalCTA />
-        <Waitlist />
       </main>
       <Footer />
     </>

@@ -25,7 +25,7 @@ const label = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Get things done. Without the hassle.",
+  title: "Samona — Get things done. Without the hassle.",
   description:
     "Find and book trusted local professionals for repairs, cleaning, maintenance, and everyday jobs — right from your phone.",
 };

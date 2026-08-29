@@ -11,6 +11,7 @@ import {
   Users,
   Wallet,
   Wrench,
+  ArrowRight,
 } from "lucide-react";
 
 import { professionals } from "@/lib/data";
@@ -277,15 +278,13 @@ export function Hero() {
     <section className="px-5 pt-14 pb-20 sm:px-8 sm:pt-20 lg:pt-24">
       <div className="mx-auto max-w-4xl text-center">
         <motion.div {...item(0)}>
-          <span className="inline-flex items-center gap-2.5 rounded-full border border-line bg-card py-1.5 pr-4 pl-3 text-sm text-ink shadow-sm">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-tone-green opacity-70 motion-reduce:hidden" />
-              <span className="relative inline-flex size-2 rounded-full bg-tone-green" />
-            </span>
-            <span>
-              Now live in <span className="font-medium">Visakhapatnam</span>
-            </span>
-          </span>
+          <a
+            href="/join"
+            className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white shadow-[0_4px_0_0_rgba(25,25,24,0.25)] transition-all hover:-translate-y-0.5 hover:bg-ink/90 active:translate-y-[3px] active:shadow-none"
+          >
+            Join the waitlist
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+          </a>
         </motion.div>
 
         <motion.h1
@@ -305,7 +304,7 @@ export function Hero() {
 
         <motion.div
           {...item(0.18)}
-          className="mt-8 flex flex-wrap items-center justify-center gap-3"
+          className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center"
         >
           <a
             href="#services"
@@ -324,18 +323,6 @@ export function Hero() {
         <motion.p {...item(0.24)} className="mt-5 text-sm text-muted">
           Verified professionals · Transparent pricing · No cash pressure
         </motion.p>
-
-        <motion.div
-          {...item(0.3)}
-          className="mt-5 flex items-center justify-center"
-        >
-          <a
-            href="#waitlist"
-            className="inline-flex items-center gap-2 rounded-lg bg-ink px-5 py-2.5 text-[15px] font-medium text-white transition-colors hover:bg-ink/90"
-          >
-            Join the waiting list
-          </a>
-        </motion.div>
       </div>
 
       {/* Product mockup */}
@@ -347,20 +334,20 @@ export function Hero() {
       >
         <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-[0_20px_50px_-24px_rgba(25,25,24,0.2)]">
           {/* window chrome */}
-          <div className="flex items-center gap-4 border-b border-line bg-panel px-4 py-2.5">
-            <div className="flex gap-2">
+          <div className="flex items-center gap-2 border-b border-line bg-panel px-4 py-2.5">
+            <div className="hidden shrink-0 gap-2 sm:flex">
               <span className="size-3 rounded-full bg-[#ff5f57]" />
               <span className="size-3 rounded-full bg-[#febc2e]" />
               <span className="size-3 rounded-full bg-[#28c840]" />
             </div>
-            <div className="flex gap-1">
+            <div className="flex flex-1 gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {tabs.map((t, i) => (
                 <button
                   key={t}
                   type="button"
                   onClick={() => setTab(i)}
                   aria-pressed={tab === i}
-                  className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                  className={`shrink-0 rounded-md px-3 py-1 text-xs font-medium transition-colors ${
                     tab === i
                       ? "bg-card text-ink shadow-sm"
                       : "text-muted hover:text-ink"

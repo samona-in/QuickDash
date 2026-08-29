@@ -3,6 +3,7 @@
 import { Check, X } from "lucide-react";
 
 import { Reveal, SectionHeading } from "@/components/ui/primitives";
+import { BRAND } from "@/lib/data";
 
 const oldWay = {
   title: "Asking around",
@@ -16,7 +17,7 @@ const oldWay = {
 };
 
 const newWay = {
-  title: "Booking on QuickDash",
+  title: `Booking on ${BRAND}`,
   lede: "One request, matched to someone nearby you can actually trust.",
   points: [
     { label: "Verified identity", has: true },
@@ -45,7 +46,7 @@ function CompareCard({
         }`}
       >
         <span className="dot" />
-        {highlight ? "With QuickDash" : "The usual way"}
+        {highlight ? `With ${BRAND}` : "The usual way"}
       </p>
       <h3 className="font-display mt-1 text-2xl leading-tight font-bold tracking-[-0.02em]">
         {data.title}
