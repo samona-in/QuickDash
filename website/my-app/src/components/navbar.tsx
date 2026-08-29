@@ -55,16 +55,10 @@ export function Navbar() {
 
         <div className="ml-auto hidden items-center gap-4 md:flex">
           <a
-            href="#"
-            className="text-[15px] text-ink transition-colors hover:text-muted"
+            href="#waitlist"
+            className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ink/90"
           >
-            Log in
-          </a>
-          <a
-            href="#cta"
-            className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-deep"
-          >
-            Get started
+            Join waiting list
           </a>
         </div>
 
@@ -101,17 +95,11 @@ export function Navbar() {
               ))}
               <div className="mt-1 flex gap-2 border-t border-line pt-3">
                 <a
-                  href="#"
-                  className="flex-1 rounded-full bg-panel py-2.5 text-center text-sm font-medium"
-                >
-                  Log in
-                </a>
-                <a
-                  href="#cta"
+                  href="#waitlist"
                   onClick={() => setOpen(false)}
-                  className="flex-1 rounded-full bg-accent py-2.5 text-center text-sm font-medium text-white"
+                  className="flex-1 rounded-full bg-ink py-2.5 text-center text-sm font-medium text-white"
                 >
-                  Get started
+                  Join waiting list
                 </a>
               </div>
             </div>

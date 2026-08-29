@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+ import type { Metadata } from "next";
 import {
   Plus_Jakarta_Sans,
   Public_Sans,

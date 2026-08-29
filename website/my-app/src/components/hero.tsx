@@ -324,6 +324,18 @@ export function Hero() {
         <motion.p {...item(0.24)} className="mt-5 text-sm text-muted">
           Verified professionals · Transparent pricing · No cash pressure
         </motion.p>
+
+        <motion.div
+          {...item(0.3)}
+          className="mt-5 flex items-center justify-center"
+        >
+          <a
+            href="#waitlist"
+            className="inline-flex items-center gap-2 rounded-lg bg-ink px-5 py-2.5 text-[15px] font-medium text-white transition-colors hover:bg-ink/90"
+          >
+            Join the waiting list
+          </a>
+        </motion.div>
       </div>
 
       {/* Product mockup */}
