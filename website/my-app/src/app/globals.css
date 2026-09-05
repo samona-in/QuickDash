@@ -117,7 +117,7 @@ html {
   display: inline-block;
   padding: 0 0.3em 0.06em;
   border-radius: 999px;
-  background: var(--tint-yellow);
+  background: var(--accent);
 }
 
 /* Notion's colored status dot, as used on database tags and board columns. */

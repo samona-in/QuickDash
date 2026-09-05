@@ -8,15 +8,13 @@ import { BRAND } from "@/lib/data";
 
 /* ---------------------------------- Logo ---------------------------------- */
 
-export function Logo({ dark = false }: { dark?: boolean }) {
+export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span
-      className={`font-display text-[19px] font-extrabold tracking-tight ${
-        dark ? "text-cream" : "text-ink"
-      }`}
-    >
-      {BRAND}
-    </span>
+    <img
+      src="/images/logo2.jpg"
+      alt={`${BRAND} logo`}
+      className={`h-12 w-auto object-contain ${className}`}
+    />
   );
 }
 

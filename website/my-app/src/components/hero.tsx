@@ -291,7 +291,7 @@ export function Hero() {
           {...item(0.06)}
           className="font-display mt-4 text-[2.75rem] leading-[1.02] font-extrabold tracking-[-0.03em] text-balance sm:text-6xl lg:text-[4.75rem]"
         >
-          Get things done. <span className="marker">Without</span> the hassle.
+          Get things done. <span className="marker text-white">Without</span> the hassle.
         </motion.h1>
 
         <motion.p
