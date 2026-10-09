@@ -28,32 +28,38 @@ export function TBD({ children }: { children: ReactNode }) {
 type LegalPageProps = {
   title: string;
   lede: string;
-  lastUpdated: string;
   sections: LegalSection[];
   related: { label: string; href: string }[];
+  eyebrow?: string;
+  lastUpdated?: string;
+  relatedEyebrow?: string;
 };
 
 export function LegalPage({
   title,
   lede,
-  lastUpdated,
   sections,
   related,
+  eyebrow = "Legal",
+  lastUpdated,
+  relatedEyebrow = "Related policies",
 }: LegalPageProps) {
   return (
     <div id="top" className="mx-auto w-full max-w-6xl px-5 pt-14 pb-24 sm:px-8 sm:pt-20">
       <header className="max-w-3xl">
-        <p className="eyebrow">Legal</p>
+        <p className="eyebrow">{eyebrow}</p>
         <h1 className="mt-3 font-display text-[2.25rem] leading-[1.08] font-extrabold tracking-[-0.02em] text-balance sm:text-5xl lg:text-[3.25rem]">
           {title}
         </h1>
         <p className="mt-5 text-lg leading-relaxed text-muted">{lede}</p>
-        <p className="mt-6 text-sm text-muted">
-          Last updated{" "}
-          <time dateTime="2026-10-08" className="font-medium text-ink">
-            {lastUpdated}
-          </time>
-        </p>
+        {lastUpdated && (
+          <p className="mt-6 text-sm text-muted">
+            Last updated{" "}
+            <time dateTime="2026-10-08" className="font-medium text-ink">
+              {lastUpdated}
+            </time>
+          </p>
+        )}
       </header>
 
       <div className="mt-12 lg:mt-16 lg:grid lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-14 xl:gap-20">
@@ -81,7 +87,7 @@ export function LegalPage({
           ))}
 
           <footer className="border-t border-line pt-10">
-            <p className="eyebrow">Related policies</p>
+            <p className="eyebrow">{relatedEyebrow}</p>
             <ul className="mt-4 flex flex-wrap gap-3">
               {related.map((link) => (
                 <li key={link.href}>

@@ -17,5 +17,9 @@ export const LEGAL = {
     "Vijayawada, NTR District, Andhra Pradesh – 520010, India",
   ],
   contactEmail: "samona.official9@gmail.com",
+  contactPhone: "+91 8143 92 9696",
+  contactPhoneHref: "tel:+918143929696",
+  supportHours: "9:00 AM – 6:00 PM IST, Mon–Sat",
+  responseTime: "Within 48 hours",
   grievanceOfficer: "Nangana Mohanrao (registered proprietor)",
 } as const;
