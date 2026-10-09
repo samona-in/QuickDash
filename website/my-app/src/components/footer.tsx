@@ -28,7 +28,11 @@ const columns = [
   },
 ];
 
-const socials = ["X", "Instagram", "LinkedIn"];
+const socials = [
+  { label: "X", href: "#" },
+  { label: "Instagram", href: "https://www.instagram.com/samona.in/" },
+  { label: "LinkedIn", href: "#" },
+];
 
 export function Footer() {
   return (
@@ -42,13 +46,15 @@ export function Footer() {
               and everyday jobs.
             </p>
             <div className="mt-5 flex gap-2">
-              {socials.map((label) => (
+              {socials.map((social) => (
                 <a
-                  key={label}
-                  href="#"
+                  key={social.label}
+                  href={social.href}
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
+                  rel={social.href.startsWith("http") ? "noreferrer" : undefined}
                   className="rounded-md bg-panel px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:text-ink"
                 >
-                  {label}
+                  {social.label}
                 </a>
               ))}
             </div>
