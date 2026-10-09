@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 import { Logo } from "@/components/ui/primitives";
 
 const links = [
-  { label: "Services", href: "#services" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "For professionals", href: "#professionals" },
+  { label: "Services", href: "/#services" },
+  { label: "How it works", href: "/#how-it-works" },
+  { label: "For professionals", href: "/#professionals" },
 ];
 
 export function Navbar() {
@@ -37,9 +38,9 @@ export function Navbar() {
             : "shadow-[0_2px_10px_-4px_rgba(25,25,24,0.08)]"
         }`}
       >
-        <a href="#" aria-label="Home" className="pl-2">
+        <Link href="/" aria-label="Home" className="pl-2">
           <Logo />
-        </a>
+        </Link>
 
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
           {links.map((l) => (
