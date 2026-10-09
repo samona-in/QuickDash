@@ -5,6 +5,7 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 
 const display = Plus_Jakarta_Sans({
   variable: "--font-display",
@@ -25,6 +26,7 @@ const label = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Samona — Get things done. Without the hassle.",
   description:
     "Find and book trusted local professionals for repairs, cleaning, maintenance, and everyday jobs — right from your phone.",

@@ -4,15 +4,27 @@ import { Logo } from "@/components/ui/primitives";
 const columns = [
   {
     heading: "Product",
-    links: ["Services", "How it works", "For professionals"],
+    links: [
+      { label: "Services", href: "/#services" },
+      { label: "How it works", href: "/#how-it-works" },
+      { label: "For professionals", href: "/#professionals" },
+    ],
   },
   {
     heading: "Company",
-    links: ["About", "Contact", "Careers"],
+    links: [
+      { label: "About", href: "#" },
+      { label: "Contact", href: "#" },
+      { label: "Careers", href: "#" },
+    ],
   },
   {
     heading: "Legal",
-    links: ["Privacy", "Terms"],
+    links: [
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Terms & Conditions", href: "/terms-and-conditions" },
+      { label: "Delete your account", href: "/delete-account" },
+    ],
   },
 ];
 
@@ -48,12 +60,12 @@ export function Footer() {
                 <p className="eyebrow text-muted">{column.heading}</p>
                 <ul className="mt-4 space-y-2.5">
                   {column.links.map((link) => (
-                    <li key={link}>
+                    <li key={link.label}>
                       <a
-                        href="#"
+                        href={link.href}
                         className="text-sm text-ink/80 transition-colors hover:text-accent"
                       >
-                        {link}
+                        {link.label}
                       </a>
                     </li>
                   ))}
