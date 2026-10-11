@@ -6,7 +6,8 @@ import { LEGAL } from "@/lib/site";
  * Only data practices verified from the product are described. Storage
  * providers and regions were verified from the backend infrastructure
  * (Supabase + AWS, hosted outside India). Account deletion (§15) reflects the
- * verified in-app flow for Professionals, including legal-hold preservation.
+ * verified in-app flow for Professionals and Customers, including legal-hold
+ * preservation.
  * Retention periods in Section 13 are the approved schedule behind the
  * automatic retention engine. Contact details (email and Grievance Officer)
  * are confirmed in Section 20.
@@ -597,11 +598,13 @@ export const privacySections: LegalSection[] = [
         </p>
         <p>
           When you request account deletion, however, the process is
-          automated: verification documents, profile and verification photos,
-          and other Professional profile data are deleted as part of the
-          deletion flow described in Section 15. Job records, chat messages,
-          earnings records and reviews are retained as the other party&rsquo;s
-          record of the transaction. Backup copies are cycled out on the backup
+          automated: professional verification documents, profile and
+          verification photos, other professional profile data, and — for a
+          deleted customer surface — the customer profile data, profile photo
+          and saved addresses are deleted as part of the deletion flow
+          described in Section 15. Job records, chat messages, earnings
+          records and reviews are retained as the other party&rsquo;s record
+          of the transaction. Backup copies are cycled out on the backup
           schedule of our hosting providers.
         </p>
       </>
@@ -648,8 +651,9 @@ export const privacySections: LegalSection[] = [
           You can exercise several of these controls directly in the apps —
           for example by editing your profile, revoking device permissions in
           your phone&rsquo;s settings, deleting verification documents you
-          have submitted, or (for Professionals) deleting your account through
-          the Pro app as described in Section 15. For anything else, contact
+          have submitted, or deleting your account through the app
+          (Professionals in the Pro app, Customers in the customer app) as
+          described in Section 15. For anything else, contact
           us using the details in Section 20. We may need to verify your
           identity before acting on a request.
         </p>
@@ -663,10 +667,12 @@ export const privacySections: LegalSection[] = [
     body: (
       <>
         <p>
-          <strong>Professionals</strong> can request deletion of their account
-          directly in the Samona Pro app (Profile → Delete account). The flow
-          requires you to sign in with a fresh one-time code to confirm it is
-          really you, and then to confirm with a single-use deletion code.
+          <strong>Professionals and customers</strong> can request deletion of
+          their account directly in the app — Samona Pro (Profile → Delete
+          account) or the customer app (Profile → Delete account). The flow
+          requires you to confirm it is really you with a fresh one-time code
+          when your session is not fresh enough, and then to confirm with a
+          single-use deletion code.
         </p>
         <p>
           What is deleted depends on your account, and is decided by our
@@ -675,16 +681,25 @@ export const privacySections: LegalSection[] = [
         <ul>
           <li>
             <strong>Professional profile only.</strong> If your mobile number is
-            also registered as a customer account, only the professional side
-            is removed: your professional profile, skills, services, documents,
-            profile and verification photos, and job alerts. Your customer
-            account and phone number continue to work as before.
+            also registered as a customer account, deleting from the Pro app
+            removes only the professional side: your professional profile,
+            skills, services, documents, profile and verification photos, and
+            job alerts. Your customer account and phone number continue to work
+            as before.
+          </li>
+          <li>
+            <strong>Customer profile only.</strong> If your mobile number is
+            also registered as a professional account, deleting from the
+            customer app removes only the customer side: your customer profile
+            and details, profile photo, saved addresses, and notification
+            records. Your professional account and phone number continue to
+            work as before.
           </li>
           <li>
             <strong>Entire account.</strong> If your mobile number is not
-            registered as a customer account, the deletion removes your entire
-            Samona identity — including your phone number and sign-in — from
-            both the Samona and Samona Pro apps. Because one phone identity
+            registered as the other kind of account, the deletion removes your
+            entire Samona identity — including your phone number and sign-in —
+            from both the Samona and Samona Pro apps. Because one phone identity
             signs into both apps, deleting the account means that phone number
             can no longer sign in to either.
           </li>
@@ -710,17 +725,10 @@ export const privacySections: LegalSection[] = [
           Where an active legal hold is in place — for example, during a
           dispute, a fraud investigation, or a legal or regulatory obligation —
           the records covered by the hold are preserved from deletion, even if
-          they are the Professional&rsquo;s own documents or profile data. The
+          they are your own documents or profile data. The
           rest of the deletion still proceeds, and the held records are
           deleted once the hold is released. In all cases, an audit record of
           the deletion is retained.
-        </p>
-        <p>
-          <strong>Customers</strong> do not currently have a self-service
-          deletion option in the customer app. If you only use the customer
-          app, you may request account deletion at any time by contacting us
-          at the address in Section 20, and we will process your request
-          through the same deletion procedures.
         </p>
       </>
     ),

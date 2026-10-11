@@ -571,10 +571,10 @@ export const termsSections: LegalSection[] = [
         <p>You may stop using the Platform at any time and may request account
           deletion as described in our{" "}
           <a href="/privacy-policy">Privacy Policy</a>. Professionals can
-          request deletion of their account directly in the Samona Pro app
-          (Profile → Delete account), after verifying themselves with a fresh
-          one-time code; details of what the deletion removes, and how to
-          request deletion of a customer-only account, are set out in the
+          request deletion of their account in the Samona Pro app and Customers
+          in the customer app (Profile → Delete account), after verifying
+          themselves with a fresh one-time code where required; details of what
+          the deletion removes are set out in the
           Privacy Policy. The Privacy Policy also describes our automated
           data-retention cleanup and the records that may ever be deleted
           automatically.

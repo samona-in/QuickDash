@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage() {
         <LegalPage
           title="Privacy Policy"
           lede="This policy explains what personal information Samona collects when you book or perform services, how we use and share it, and the choices and rights you have — including under India's Digital Personal Data Protection Act, 2023."
-          lastUpdated="October 9, 2026"
+          lastUpdated="October 11, 2026"
           sections={privacySections}
           related={[
             { label: "Terms & Conditions", href: "/terms-and-conditions" },
