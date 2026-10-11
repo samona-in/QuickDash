@@ -22,7 +22,7 @@ export default function DeleteAccountPage() {
         <LegalPage
           title="Delete your account"
           lede="Deleting your Samona account is permanent and cannot be undone. This page explains how deletion works in the app, what gets removed, what stays on file, and how long it takes."
-          lastUpdated="October 9, 2026"
+          lastUpdated="October 11, 2026"
           sections={accountDeletionSections}
           related={[
             { label: "Privacy Policy", href: "/privacy-policy" },

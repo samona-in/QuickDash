@@ -22,7 +22,7 @@ export default function TermsAndConditionsPage() {
         <LegalPage
           title="Terms & Conditions"
           lede="These terms govern your use of Samona — how our marketplace connects customers with independent service professionals, how bookings work, and the responsibilities that come with using the Platform."
-          lastUpdated="October 9, 2026"
+          lastUpdated="October 11, 2026"
           sections={termsSections}
           related={[
             { label: "Privacy Policy", href: "/privacy-policy" },
