@@ -26,32 +26,48 @@ export const professionOptions: Profession[] = [
   { value: "other", label: "Other" },
 ];
 
+/**
+ * Hyderabad localities shown when someone joins the waitlist.
+ *
+ * Placeholder data — swap for your real list later. Values are stored in the
+ * DB as-is, so keep them stable once you have submissions.
+ */
 export const locationOptions: string[] = [
-  "Alluri Sitharama Raju",
-  "Anakapalli",
-  "Ananthapuramu (Anantapur)",
-  "Annamayya",
-  "Bapatla",
-  "Chittoor",
-  "Dr. B.R. Ambedkar Konaseema",
-  "East Godavari",
-  "Eluru",
-  "Guntur",
-  "Kakinada",
-  "Krishna",
-  "Kurnool",
-  "Markapuram",
-  "Nandyal",
-  "NTR",
-  "Palnadu",
-  "Parvathipuram Manyam",
-  "Polavaram",
-  "Prakasam",
-  "Sri Potti Sriramulu Nellore (Nellore)",
-  "Sri Sathya Sai",
-  "Srikakulam",
-  "Tirupati",
-  "Visakhapatnam",
-  "Vizianagaram",
-  "YSR Kadapa",
+  "Gachibowli",
+  "Madhapur",
+  "HITEC City",
+  "Kondapur",
+  "Miyapur",
+  "Kukatpally",
+  "Nizampet",
+  "Bachupally",
+  "Manikonda",
+  "Puppalaguda",
+  "Kokapet",
+  "Narsingi",
+  "Financial District",
+  "Jubilee Hills",
+  "Banjara Hills",
+  "Film Nagar",
+  "Ameerpet",
+  "SR Nagar",
+  "Panjagutta",
+  "Begumpet",
+  "Himayatnagar",
+  "Secunderabad",
+  "Marredpally",
+  "Kompally",
+  "Uppal",
+  "LB Nagar",
+  "Dilsukhnagar",
+  "Kothapet",
+  "Nagole",
+  "Mehdipatnam",
+  "Attapur",
+  "Rajendranagar",
+  "Shamshabad",
 ];
+
+export function isKnownLocation(value: string): boolean {
+  return locationOptions.includes(value);
+}

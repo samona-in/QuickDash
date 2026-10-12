@@ -4,15 +4,14 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { LegalPage } from "@/components/legal/legal-page";
 import { accountDeletionSections } from "@/content/legal/delete-account";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Delete your account — Samona",
+export const metadata: Metadata = pageMetadata({
+  title: "Delete your account",
   description:
     "How to permanently delete your Samona account — the steps in the app, what gets removed, what stays on file, and what to expect in the customer app.",
-  alternates: {
-    canonical: "/delete-account",
-  },
-};
+  path: "/delete-account",
+});
 
 export default function DeleteAccountPage() {
   return (
