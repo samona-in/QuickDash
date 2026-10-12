@@ -4,15 +4,14 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { LegalPage } from "@/components/legal/legal-page";
 import { termsSections } from "@/content/legal/terms";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms & Conditions — Samona",
+export const metadata: Metadata = pageMetadata({
+  title: "Terms & Conditions",
   description:
     "The terms that govern your use of Samona — how our service marketplace connects customers with independent professionals, bookings, cash payments, and your rights and responsibilities.",
-  alternates: {
-    canonical: "/terms-and-conditions",
-  },
-};
+  path: "/terms-and-conditions",
+});
 
 export default function TermsAndConditionsPage() {
   return (

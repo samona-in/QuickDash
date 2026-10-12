@@ -1,15 +1,15 @@
 "use server";
 
 import { getSupabaseServerClient } from "@/lib/supabase/server";
-import { professionOptions } from "@/lib/waitlist";
+import { professionOptions, isKnownLocation } from "@/lib/waitlist";
 
 export type WaitlistState = {
   status: "idle" | "success" | "error";
   message?: string;
-  errors?: Partial<Record<"contact" | "role" | "professions", string>>;
+  errors?: Partial<Record<"contact" | "role" | "location" | "professions", string>>;
 };
 
-// (location is captured but optional, so it's not part of the error map)
+// (location is captured and required, validated against the known list)
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+]?[\d\s()-]{7,20}$/;
@@ -54,6 +54,12 @@ export async function submitWaitlist(
     return {
       status: "error",
       errors: { role: "Pick whether you're a customer or a professional." },
+    };
+  }
+  if (!location || !isKnownLocation(location)) {
+    return {
+      status: "error",
+      errors: { location: "Pick your city / area." },
     };
   }
   if (role === "professional" && professions.length === 0) {

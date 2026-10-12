@@ -4,15 +4,14 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { LegalPage } from "@/components/legal/legal-page";
 import { contactSections } from "@/content/legal/contact";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact — Samona",
+export const metadata: Metadata = pageMetadata({
+  title: "Contact",
   description:
     "Questions, booking help, or account support? Email or call Samona at +91 8143 92 9696, or reach our Grievance Officer at the registered address in Vijayawada.",
-  alternates: {
-    canonical: "/contact",
-  },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

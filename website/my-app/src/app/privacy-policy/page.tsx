@@ -4,15 +4,14 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { LegalPage } from "@/components/legal/legal-page";
 import { privacySections } from "@/content/legal/privacy";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy — Samona",
+export const metadata: Metadata = pageMetadata({
+  title: "Privacy Policy",
   description:
     "How Samona collects, uses, shares, and protects your personal data — including account details, location access, verification documents, and your rights under India's DPDP Act, 2023.",
-  alternates: {
-    canonical: "/privacy-policy",
-  },
-};
+  path: "/privacy-policy",
+});
 
 export default function PrivacyPolicyPage() {
   return (

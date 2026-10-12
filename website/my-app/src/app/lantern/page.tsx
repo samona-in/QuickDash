@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Lantern — Every tool you use. One connection.",
   description:
     "Lantern connects Slack, Gmail, Salesforce, Zendesk and everything else your team runs on through one hub — no custom integrations required.",
+  robots: { index: false, follow: false },
 };
 
 export default function LanternPage() {

@@ -9,6 +9,60 @@ import { professionOptions, locationOptions } from "@/lib/waitlist";
 
 const initialState: WaitlistState = { status: "idle" };
 
+/**
+ * Shared behaviour for the themed dropdowns: open/close state, outside-click and
+ * Escape dismissal, and flipping the menu above the trigger when there isn't
+ * enough room below it — so it never runs off the bottom of the screen.
+ *
+ * `menuHeight` is the tallest the open menu can be (the `max-h-64` listbox plus
+ * its padding, border and the gap under the trigger), used to decide the flip.
+ */
+function useDropdown(menuHeight = 290) {
+  const [open, setOpen] = useState(false);
+  const [dropUp, setDropUp] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onDoc(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!open || !ref.current) return;
+    const update = () => {
+      const el = ref.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      setDropUp(spaceBelow < menuHeight && spaceAbove > spaceBelow);
+    };
+    update();
+    window.addEventListener("scroll", update, true);
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update, true);
+      window.removeEventListener("resize", update);
+    };
+  }, [open, menuHeight]);
+
+  const menuClass = dropUp
+    ? "absolute bottom-full z-10 mb-2 w-full"
+    : "absolute top-full z-10 mt-2 w-full";
+
+  return { open, setOpen, ref, menuClass };
+}
+
 function ProfessionSelect({
   selected,
   onToggle,
@@ -16,16 +70,7 @@ function ProfessionSelect({
   selected: string[];
   onToggle: (value: string) => void;
 }) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function onDoc(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, []);
+  const { open, setOpen, ref, menuClass } = useDropdown();
 
   const summary = selected.length
     ? selected
@@ -55,7 +100,7 @@ function ProfessionSelect({
       {open && (
         <div
           role="listbox"
-          className="absolute z-10 mt-2 max-h-64 w-full overflow-auto rounded-2xl border-2 border-ink/15 bg-white p-2 shadow-lg"
+          className={`${menuClass} max-h-64 overflow-auto rounded-2xl border-2 border-ink/15 bg-white p-2 shadow-lg`}
         >
           {professionOptions.map((p) => {
             const active = selected.includes(p.value);
@@ -87,6 +132,72 @@ function ProfessionSelect({
   );
 }
 
+function LocationSelect({
+  selected,
+  onSelect,
+}: {
+  selected: string;
+  onSelect: (value: string) => void;
+}) {
+  const { open, setOpen, ref, menuClass } = useDropdown();
+
+  return (
+    <div ref={ref} className="relative mt-2">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-2 rounded-2xl border-2 border-ink/15 bg-white px-5 py-4 text-left text-[15px] text-ink outline-none transition-colors focus:border-accent"
+      >
+        <span className={selected ? "text-ink" : "text-muted"}>
+          {selected || "City / Area"}
+        </span>
+        <ChevronDown
+          className={`size-4 shrink-0 text-muted transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {open && (
+        <div
+          role="listbox"
+          className={`${menuClass} max-h-64 overflow-auto rounded-2xl border-2 border-ink/15 bg-white p-2 shadow-lg`}
+        >
+          {locationOptions.map((loc) => {
+            const active = selected === loc;
+            return (
+              <button
+                key={loc}
+                type="button"
+                role="option"
+                aria-selected={active}
+                onClick={() => {
+                  onSelect(loc);
+                  setOpen(false);
+                }}
+                className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[15px] text-ink transition-colors hover:bg-panel"
+              >
+                <span
+                  className={`grid size-5 shrink-0 place-items-center rounded-full border-2 transition-colors ${
+                    active
+                      ? "border-accent bg-accent text-white"
+                      : "border-ink/20 bg-white"
+                  }`}
+                >
+                  {active && <Check className="size-3.5" />}
+                </span>
+                {loc}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Waitlist() {
   const [state, formAction, pending] = useActionState(
     submitWaitlist,
@@ -94,6 +205,7 @@ export function Waitlist() {
   );
   const [role, setRole] = useState<"customer" | "professional" | "">("");
   const [selected, setSelected] = useState<string[]>([]);
+  const [location, setLocation] = useState("");
 
   function chooseRole(next: "customer" | "professional") {
     setRole(next);
@@ -212,24 +324,16 @@ export function Waitlist() {
           )}
 
           {/* Location */}
-          <label htmlFor="location" className="eyebrow mt-7 block text-ink">
+          <p className="eyebrow mt-7 block text-ink">
             Where are you located?
-          </label>
-          <select
-            id="location"
-            name="location"
-            defaultValue=""
-            className="mt-2 w-full appearance-none rounded-2xl border-2 border-ink/15 bg-white px-5 py-4 text-[15px] text-ink outline-none transition-colors focus:border-accent"
-          >
-            <option value="" disabled>
-              City / Area
-            </option>
-            {locationOptions.map((loc) => (
-              <option key={loc} value={loc}>
-                {loc}
-              </option>
-            ))}
-          </select>
+          </p>
+          <LocationSelect selected={location} onSelect={setLocation} />
+          <input type="hidden" name="location" value={location} />
+          {state.errors?.location && (
+            <p className="mt-2 text-sm font-medium text-accent-deep">
+              {state.errors.location}
+            </p>
+          )}
 
           {/* Services (professionals only) */}
           {role === "professional" && (
