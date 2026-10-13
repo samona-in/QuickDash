@@ -4,13 +4,18 @@ import { useEffect, useState, type ComponentType } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   Bell,
+  Check,
   CheckCircle2,
+  ChevronLeft,
+  MapPin,
+  MessageCircle,
   Navigation,
   Search,
+  ShieldCheck,
   Star,
+  User,
 } from "lucide-react";
 
-import { professionals } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/primitives";
 
 const SCREEN_MS = 3600;
@@ -185,72 +190,167 @@ function ScreenHome() {
   );
 }
 
-function ScreenPros() {
+/* The "Choose" step: pick the job category before matching a pro. */
+const jobCategories = [
+  "Car wash",
+  "Detailing",
+  "Battery service",
+  "Tyre service",
+  "Other",
+];
+
+function ScreenChoose() {
   return (
-    <div>
-      <p className="font-display text-lg font-bold">Available nearby</p>
-      <div className="mt-4 space-y-2.5">
-        {professionals.slice(0, 2).map((pro, i) => (
-          <div
-            key={pro.name}
-            className={`rounded-xl p-4 ${
-              i === 0 ? "bg-accent-soft" : "bg-panel"
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-medium">{pro.name}</p>
-              <span className="inline-flex items-center gap-1 text-xs">
-                <Star className="size-3 fill-tone-yellow text-tone-yellow" />
-                {pro.rating}
-              </span>
-            </div>
-            <p className="mt-1 text-xs text-muted">
-              {pro.jobs} jobs · {pro.distanceKm} km · ₹{pro.visitFee} visit
-            </p>
+    <div className="flex h-full flex-col px-4 pt-7 pb-4">
+      <p className="font-display text-[22px] leading-[1.1] font-extrabold tracking-[-0.02em] text-ink">
+        What exactly do you need?
+      </p>
+      <p className="mt-2 text-[13px] leading-snug text-muted">
+        Pick the job category that matches your request.
+      </p>
+
+      {/* category options */}
+      <div className="mt-4 flex flex-col gap-2.5">
+        {jobCategories.map((label, i) => {
+          const selected = i === 0;
+          return (
             <div
-              className={`mt-3 rounded-lg py-2 text-center text-xs font-medium ${
-                i === 0 ? "bg-accent text-white" : "bg-card text-muted"
+              key={label}
+              className={`flex items-center justify-between rounded-2xl border px-3.5 py-[13px] ${
+                selected
+                  ? "border-accent bg-[#f1f4f9]"
+                  : "border-[#e7e7e9] bg-white"
               }`}
             >
-              Book
+              <span className="text-[14px] font-semibold text-ink">
+                {label}
+              </span>
+              {selected ? (
+                <span className="grid size-[18px] shrink-0 place-items-center rounded-full bg-accent">
+                  <Check className="size-3 text-white" strokeWidth={3.5} />
+                </span>
+              ) : (
+                <span className="size-[18px] shrink-0 rounded-full border-[1.5px] border-[#c9ccd1]" />
+              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
+      </div>
+
+      {/* continue */}
+      <div className="mt-auto pt-4">
+        <div className="rounded-2xl bg-accent py-3 text-center text-[15px] font-semibold text-white">
+          Continue
+        </div>
       </div>
     </div>
   );
 }
 
-function ScreenConfirmed() {
+/* The "Track" step: live status of the job the customer booked. */
+function ScreenTrack() {
   return (
-    <div>
-      <div className="flex items-center gap-2">
-        <CheckCircle2 className="size-5 text-tone-green" />
-        <p className="font-display text-lg font-bold">Booking confirmed</p>
-      </div>
-      <div className="mt-5 rounded-xl bg-panel p-4">
-        <p className="text-sm font-medium">Ravi Kumar</p>
-        <p className="text-xs text-muted">AC Technician</p>
-        <div className="mt-4 flex items-end justify-between">
-          <div>
-            <p className="text-xs text-muted">Arriving in</p>
-            <p className="font-display text-3xl font-extrabold tracking-tight">
-              14 min
-            </p>
-          </div>
-          <Navigation className="size-5 text-tone-green" />
+    <div className="flex h-full flex-col">
+      {/* header: back, service + schedule, support */}
+      <div className="flex items-center gap-4 border-b border-[#e9ebee] px-2 pt-3 pb-2">
+        <span className="grid size-9 shrink-0 place-items-center text-ink">
+          <ChevronLeft className="size-5" strokeWidth={2.4} />
+        </span>
+        <div className="min-w-0">
+          <p className="font-display truncate text-[15px] leading-tight font-bold text-ink">
+            Plumbing
+          </p>
+          <p className="mt-1 text-[11px] leading-none text-muted">
+            12 Oct 2026 • 5:37 pm
+          </p>
         </div>
-        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-panel-2">
-          <motion.div
-            initial={{ width: "8%" }}
-            animate={{ width: "55%" }}
-            transition={{ duration: 2.8, ease: "easeInOut" }}
-            className="h-full bg-accent"
+        <span className="ml-auto grid size-8 shrink-0 place-items-center rounded-full bg-[#ebf1fd]">
+          <MessageCircle
+            className="size-[18px] fill-accent text-accent"
+            strokeWidth={1.6}
           />
+        </span>
+      </div>
+
+      {/* status + verification code */}
+      <div className="border-b border-[#e9ebee] px-4 pt-6 pb-1">
+        <div className="flex items-center gap-3 py-2.5">
+          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#ebf1fd]">
+            <Navigation className="size-[17px] text-accent" strokeWidth={2.2} />
+          </span>
+          <span className="text-[14px] font-semibold text-ink">Arrived</span>
+        </div>
+        <div className="flex items-center gap-3 py-2.5">
+          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#ebf1fd]">
+            <ShieldCheck className="size-[17px] text-accent" strokeWidth={2.2} />
+          </span>
+          <span className="text-[12.5px] font-medium text-ink">
+            Verification code
+          </span>
+          <span className="font-display ml-auto text-[15px] font-bold tracking-[0.12em] text-accent">
+            6278
+          </span>
         </div>
       </div>
-      <div className="mt-4 rounded-lg bg-panel py-2.5 text-center text-sm font-medium">
-        Track professional
+
+      {/* professional on the job */}
+      <div className="flex items-center gap-3 border-b border-[#e9ebee] px-4 py-4">
+        <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#eef1f6]">
+          <User className="size-5 text-[#5b6472]" strokeWidth={2} />
+        </span>
+        <div className="min-w-0">
+          <p className="truncate text-[14px] font-semibold text-ink">Namaste</p>
+          <p className="mt-0.5 truncate text-[12px] text-muted">
+            Professional on this job
+          </p>
+        </div>
+      </div>
+
+      {/* amount */}
+      <div className="border-b border-[#e9ebee] px-4 py-5">
+        <div className="flex items-baseline justify-between">
+          <span className="text-[10.5px] font-medium tracking-[0.16em] text-muted">
+            AMOUNT
+          </span>
+          <span className="font-display text-[16px] font-bold text-ink">
+            ₹550
+          </span>
+        </div>
+        <p className="mt-1.5 text-[11.5px] text-muted">
+          The amount agreed with your professional.
+        </p>
+      </div>
+
+      {/* location */}
+      <div className="flex items-start gap-3 border-b border-[#e9ebee] px-4 py-5">
+        <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full bg-[#ebf1fd]">
+          <MapPin className="size-[17px] text-accent" strokeWidth={2.2} />
+        </span>
+        <div className="min-w-0">
+          <p className="text-[10.5px] font-medium tracking-[0.14em] text-muted">
+            WHERE
+          </p>
+          <p className="mt-1 text-[12.5px] leading-snug text-ink">
+            Sathupally, Sathupally mandal, Khammam, Telangana, India
+          </p>
+        </div>
+      </div>
+
+      {/* what's needed */}
+      <div className="px-4 py-5">
+        <p className="text-[10.5px] font-medium tracking-[0.14em] text-muted">
+          WHAT&apos;S NEEDED
+        </p>
+        <p className="mt-1.5 text-[12.5px] leading-snug text-ink">
+          This is a good time to
+        </p>
+      </div>
+
+      {/* cancel */}
+      <div className="mt-6 px-4 pb-4">
+        <p className="text-center text-[13.5px] font-semibold text-ink">
+          Cancel booking
+        </p>
       </div>
     </div>
   );
@@ -292,10 +392,15 @@ function ScreenDone() {
   );
 }
 
-const screens: { label: string; Screen: ComponentType; flush?: boolean }[] = [
-  { label: "Describe", Screen: ScreenHome, flush: true },
-  { label: "Choose", Screen: ScreenPros },
-  { label: "Track", Screen: ScreenConfirmed },
+const screens: {
+  label: string;
+  Screen: ComponentType;
+  flush?: boolean;
+  shell?: string;
+}[] = [
+  { label: "Describe", Screen: ScreenHome, flush: true, shell: "bg-[#f1f4f9]" },
+  { label: "Choose", Screen: ScreenChoose, flush: true },
+  { label: "Track", Screen: ScreenTrack, flush: true, shell: "bg-[#fafbfd]" },
   { label: "Review", Screen: ScreenDone },
 ];
 
@@ -307,6 +412,7 @@ export function BookingDemo() {
   const reduce = useReducedMotion();
   const ActiveScreen = screens[active].Screen;
   const flush = screens[active].flush ?? false;
+  const shell = screens[active].shell ?? "bg-card";
 
   useEffect(() => {
     if (paused || reduce) return;
@@ -387,9 +493,7 @@ export function BookingDemo() {
               {/* screen — the Describe step's background matches the app
                   screenshot so the status-bar strip blends with its top */}
               <div
-                className={`relative flex h-[660px] flex-col overflow-hidden rounded-[2.4rem] ${
-                  flush ? "bg-[#f1f4f9]" : "bg-card"
-                }`}
+                className={`relative flex h-[660px] flex-col overflow-hidden rounded-[2.4rem] ${shell}`}
               >
                 {/* Dynamic Island */}
                 <div className="absolute top-[9px] left-1/2 z-20 h-[27px] w-[92px] -translate-x-1/2 rounded-full bg-black" />
