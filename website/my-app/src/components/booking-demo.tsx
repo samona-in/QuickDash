@@ -1,8 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { CheckCircle2, Navigation, Star } from "lucide-react";
+import {
+  Bell,
+  CheckCircle2,
+  Navigation,
+  Search,
+  Star,
+} from "lucide-react";
 
 import { professionals } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/primitives";
@@ -11,29 +17,169 @@ const SCREEN_MS = 3600;
 
 /* ------------------------------ Demo screens ------------------------------- */
 
-function ScreenIssue() {
+const categories: { label: string; image: string }[] = [
+  {
+    label: "AC & Appliances",
+    image:
+      "https://mbylupexffssmyiqgwnb.supabase.co/storage/v1/object/public/services/HVAC%20Technician%20Repair%20Icon.png",
+  },
+  {
+    label: "Electrical",
+    image:
+      "https://mbylupexffssmyiqgwnb.supabase.co/storage/v1/object/public/services/ChatGPT%20Image%20Sep%203,%202026%20at%2007_24_12%20PM.png",
+  },
+  {
+    label: "Plumbing",
+    image:
+      "https://mbylupexffssmyiqgwnb.supabase.co/storage/v1/object/public/services/ChatGPT%20Image%20Sep%202,%202026%20at%2002_39_01%20AM%20copy.png",
+  },
+  {
+    label: "Cleaning",
+    image:
+      "https://mbylupexffssmyiqgwnb.supabase.co/storage/v1/object/public/services/Motion%20Cleaning%20Icon.png",
+  },
+  {
+    label: "Car Care",
+    image:
+      "https://mbylupexffssmyiqgwnb.supabase.co/storage/v1/object/public/services/Glossy%20Blue%20Car%20Wash%20Icon.png",
+  },
+  {
+    label: "Laptop & Electronics",
+    image:
+      "https://mbylupexffssmyiqgwnb.supabase.co/storage/v1/object/public/services/Dynamic%20Blue%20Tech%20Repair%20Icon.png",
+  },
+  {
+    label: "Painting",
+    image:
+      "https://mbylupexffssmyiqgwnb.supabase.co/storage/v1/object/public/services/Dynamic%20Painter%20Service%20Icon.png",
+  },
+  {
+    label: "Carpentry",
+    image:
+      "https://mbylupexffssmyiqgwnb.supabase.co/storage/v1/object/public/services/ChatGPT%20Image%20Sep%203,%202026%20at%2007_20_57%20PM.png",
+  },
+  {
+    label: "Moving & Labour",
+    image:
+      "https://mbylupexffssmyiqgwnb.supabase.co/storage/v1/object/public/services/Blue%20Delivery%20Worker%20Icon.png",
+  },
+  {
+    label: "Other",
+    image:
+      "https://mbylupexffssmyiqgwnb.supabase.co/storage/v1/object/public/services/On-the-Go%20Handyman%20Service%20Icon.png",
+  },
+];
+
+const SEARCH_WORDS = ["electrician", "plumber", "carpenter"];
+const TITLE_WORDS = ["Electrician", "Plumber", "AC repair"];
+
+/** Types each word, pauses, deletes it, then moves on. Returns the current
+ *  visible text plus whether a caret should be shown (hidden for reduced motion). */
+function useTypewriter(words: string[]) {
+  const reduce = useReducedMotion();
+  const [index, setIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    if (reduce) return;
+    const word = words[index];
+    let delay = deleting ? 45 : 85;
+    if (!deleting && text === word) delay = 1400;
+    else if (deleting && text === "") delay = 220;
+
+    const id = setTimeout(() => {
+      if (!deleting && text === word) {
+        setDeleting(true);
+      } else if (deleting && text === "") {
+        setDeleting(false);
+        setIndex((i) => (i + 1) % words.length);
+      } else {
+        setText(
+          deleting ? word.slice(0, text.length - 1) : word.slice(0, text.length + 1),
+        );
+      }
+    }, delay);
+    return () => clearTimeout(id);
+  }, [text, deleting, index, reduce, words]);
+
+  return { shown: reduce ? words[0] : text, caret: !reduce };
+}
+
+function SearchTypewriter() {
+  const { shown, caret } = useTypewriter(SEARCH_WORDS);
   return (
-    <div>
-      <p className="text-xs text-muted">AC Repair</p>
-      <p className="font-display mt-1 text-xl font-bold">What&apos;s wrong?</p>
-      <div className="mt-4 space-y-1.5">
-        {["Not cooling", "Water leaking", "Making noise", "Installation"].map(
-          (issue, i) => (
-            <div
-              key={issue}
-              className={`rounded-lg px-3.5 py-3 text-sm ${
-                i === 0
-                  ? "bg-accent-soft font-medium text-ink"
-                  : "bg-panel text-muted"
-              }`}
-            >
-              {issue}
-            </div>
-          ),
-        )}
+    <span className="flex min-w-0 flex-1 items-center text-[13px] text-muted">
+      <span className="shrink-0">Search for&nbsp;</span>
+      <span className="truncate">{shown}</span>
+      {caret && (
+        <span
+          aria-hidden
+          className="ml-0.5 h-3.5 w-px shrink-0 animate-pulse bg-muted"
+        />
+      )}
+    </span>
+  );
+}
+
+function TitleTypewriter() {
+  const { shown, caret } = useTypewriter(TITLE_WORDS);
+  return (
+    <>
+      {shown}
+      {caret && (
+        <span
+          aria-hidden
+          className="ml-0.5 inline-block h-[0.7em] w-[3px] translate-y-[0.08em] animate-pulse bg-current align-baseline"
+        />
+      )}
+    </>
+  );
+}
+
+function ScreenHome() {
+  return (
+    <div className="flex h-full flex-col bg-card">
+      {/* location header + search */}
+      <div className="shrink-0 bg-[#f1f4f9] px-4 pt-4 pb-4">
+        <div className="flex items-start gap-3">
+          <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent">
+            {/* FaLocationDot (solid map pin with a hole), white on blue */}
+            <svg viewBox="0 0 384 512" className="size-[18px] fill-white" aria-hidden>
+              <path
+                fillRule="evenodd"
+                d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
+              />
+            </svg>
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] text-muted">Your location</p>
+            <p className="truncate text-sm font-semibold text-ink">
+              Gachibowli, Hyderabad, Telangana
+            </p>
+          </div>
+          <Bell className="mt-0.5 size-5 shrink-0 text-muted" />
+        </div>
+
+        <div className="mt-3 flex items-center gap-2 rounded-xl bg-card px-3.5 py-3">
+          <Search className="size-4 shrink-0 text-muted" />
+          <SearchTypewriter />
+        </div>
       </div>
-      <div className="mt-4 rounded-lg bg-accent py-2.5 text-center text-sm font-medium text-white">
-        Continue
+
+      {/* service categories */}
+      <div className="grid min-h-0 flex-1 grid-cols-3 content-start gap-x-2 gap-y-4 overflow-hidden px-4 pt-4">
+        {categories.map(({ label, image }) => (
+          <div key={label} className="flex flex-col items-center">
+            <span className="grid size-[72px] place-items-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={image} alt="" className="size-full object-contain" />
+            </span>
+            <span className="mt-1.5 text-center text-[11px] leading-tight font-medium text-ink">
+              {label}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -146,8 +292,8 @@ function ScreenDone() {
   );
 }
 
-const screens = [
-  { label: "Describe", Screen: ScreenIssue },
+const screens: { label: string; Screen: ComponentType; flush?: boolean }[] = [
+  { label: "Describe", Screen: ScreenHome, flush: true },
   { label: "Choose", Screen: ScreenPros },
   { label: "Track", Screen: ScreenConfirmed },
   { label: "Review", Screen: ScreenDone },
@@ -160,6 +306,7 @@ export function BookingDemo() {
   const [paused, setPaused] = useState(false);
   const reduce = useReducedMotion();
   const ActiveScreen = screens[active].Screen;
+  const flush = screens[active].flush ?? false;
 
   useEffect(() => {
     if (paused || reduce) return;
@@ -176,7 +323,11 @@ export function BookingDemo() {
         <div>
           <SectionHeading
             eyebrow="The experience"
-            title="Need an AC repair?"
+            title={
+              <>
+                Need an <TitleTypewriter />
+              </>
+            }
             lede="Describe the problem, pick someone nearby, track them to your door, and pay when it's done. The whole thing, in four screens."
           />
           <div className="mt-8 flex flex-col gap-1">
@@ -233,7 +384,13 @@ export function BookingDemo() {
           {/* titanium band → black bezel → screen */}
           <div className="rounded-[3.1rem] bg-gradient-to-b from-[#55555a] via-[#25252a] to-[#55555a] p-[3px] shadow-[0_30px_60px_-20px_rgba(25,25,24,0.45)]">
             <div className="rounded-[2.95rem] bg-black p-[9px]">
-              <div className="relative h-[660px] overflow-hidden rounded-[2.4rem] bg-card">
+              {/* screen — the Describe step's background matches the app
+                  screenshot so the status-bar strip blends with its top */}
+              <div
+                className={`relative flex h-[660px] flex-col overflow-hidden rounded-[2.4rem] ${
+                  flush ? "bg-[#f1f4f9]" : "bg-card"
+                }`}
+              >
                 {/* Dynamic Island */}
                 <div className="absolute top-[9px] left-1/2 z-20 h-[27px] w-[92px] -translate-x-1/2 rounded-full bg-black" />
 
@@ -296,7 +453,7 @@ export function BookingDemo() {
                 </div>
 
                 {/* app content */}
-                <div className="px-5 pt-7">
+                <div className={flush ? "min-h-0 flex-1" : "px-5 pt-7"}>
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={active}
@@ -304,6 +461,7 @@ export function BookingDemo() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -18 }}
                       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                      className={flush ? "h-full" : ""}
                     >
                       <ActiveScreen />
                     </motion.div>
