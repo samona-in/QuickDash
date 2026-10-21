@@ -72,11 +72,11 @@ The fundamental product loop is:
 
 The central message should be:
 
-## "Get things done. Without the hassle."
+## "The services you need. When you need them."
 
 Supporting message:
 
-> Find and book trusted local professionals for repairs, cleaning, maintenance, and everyday jobs, right from your phone.
+> Connecting you with trusted local professionals for repairs, cleaning, maintenance, and everyday jobs for your home and office — right from your phone.
 
 Alternative messaging can be explored, but keep the concept extremely clear.
 
@@ -195,9 +195,9 @@ Typography should be bold and oversized in hero sections.
 
 Example:
 
-# Get things done.
+# The services you need.
 
-# Without the hassle.
+# When you need them.
 
 Large, confident typography.
 
@@ -298,13 +298,13 @@ The user should understand the product immediately.
 
 Headline:
 
-# Get things done.
+# The services you need.
 
-# Without the hassle.
+# When you need them.
 
 Supporting text:
 
-> Find and book trusted local professionals for repairs, cleaning, maintenance, and everyday jobs.
+> Connecting you with trusted local professionals for repairs, cleaning, maintenance, and everyday jobs for your home and office — right from your phone.
 
 Primary CTA:
 
@@ -1051,11 +1051,12 @@ Mobile should be intentionally designed.
 Hero mobile:
 
 ```text
-Get things done.
-Without the hassle.
+The services you need.
+When you need them.
 
-Find trusted local
-professionals nearby.
+Connecting you with trusted
+local professionals for your
+home and office.
 
 [ Find a professional ]
 

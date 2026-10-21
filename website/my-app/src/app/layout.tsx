@@ -26,13 +26,13 @@ const label = JetBrains_Mono({
 });
 
 const DESCRIPTION =
-  "Find and book trusted local professionals for repairs, cleaning, maintenance, and everyday jobs — right from your phone.";
+  "Connecting you with trusted local professionals for repairs, cleaning, maintenance, and everyday jobs for your home and office — right from your phone.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: "Samona",
   title: {
-    default: "Samona — Get things done. Without the hassle.",
+    default: "Samona — The services you need. When you need them.",
     template: "%s — Samona",
   },
   description: DESCRIPTION,
@@ -54,12 +54,12 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "Samona",
     locale: "en_IN",
-    title: "Samona — Get things done. Without the hassle.",
+    title: "Samona — The services you need. When you need them.",
     description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Samona — Get things done. Without the hassle.",
+    title: "Samona — The services you need. When you need them.",
     description: DESCRIPTION,
   },
   robots: {
