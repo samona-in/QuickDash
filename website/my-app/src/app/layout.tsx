@@ -10,7 +10,7 @@ import { LEGAL, SITE_URL } from "@/lib/site";
 const display = Plus_Jakarta_Sans({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["400", "600", "700", "800"],
 });
 
 const body = Public_Sans({
