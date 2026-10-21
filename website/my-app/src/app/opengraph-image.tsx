@@ -6,7 +6,7 @@ import { ImageResponse } from "next/og";
  *
  * Next auto-wires this to `<meta property="og:image">` for the whole site.
  */
-export const alt = "Samona — Get things done. Without the hassle.";
+export const alt = "Samona — The services you need. When you need them.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -60,7 +60,7 @@ export default function OpengraphImage() {
               letterSpacing: -2,
             }}
           >
-            Get things done.
+            The services you need.
           </div>
           <div
             style={{
@@ -71,7 +71,7 @@ export default function OpengraphImage() {
               letterSpacing: -2,
             }}
           >
-            Without the hassle.
+            When you need them.
           </div>
         </div>
 

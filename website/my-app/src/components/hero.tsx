@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import {
   Calendar,
+  CheckCircle2,
   CreditCard,
   Home,
   MapPin,
@@ -62,6 +63,12 @@ const bookings = [
     fill: "bg-tint-gray",
     tone: "text-tone-gray",
   },
+];
+
+const trustPoints = [
+  "Verified professionals",
+  "Transparent pricing",
+  "No cash pressure",
 ];
 
 /* ------------------------------- Tab panels ------------------------------- */
@@ -291,15 +298,17 @@ export function Hero() {
           {...item(0.06)}
           className="font-display mt-4 text-[2.75rem] leading-[1.02] font-extrabold tracking-[-0.03em] text-balance sm:text-6xl lg:text-[4.75rem]"
         >
-          Get things done. <span className="marker text-white">Without</span> the hassle.
+          The services you need. <span className="marker text-white">When</span> you
+          need them.
         </motion.h1>
 
         <motion.p
           {...item(0.12)}
           className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-muted sm:text-lg"
         >
-          Find and book trusted local professionals for repairs, cleaning,
-          maintenance, and everyday jobs — right from your phone.
+          Connecting you with trusted local professionals for repairs, cleaning,
+          maintenance, and everyday jobs for your home and office — right from your
+          phone.
         </motion.p>
 
         <motion.div
@@ -320,9 +329,17 @@ export function Hero() {
           </a>
         </motion.div>
 
-        <motion.p {...item(0.24)} className="mt-5 text-sm text-muted">
-          Verified professionals · Transparent pricing · No cash pressure
-        </motion.p>
+        <motion.ul
+          {...item(0.24)}
+          className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted"
+        >
+          {trustPoints.map((point) => (
+            <li key={point} className="inline-flex items-center gap-1.5">
+              <CheckCircle2 className="size-4 shrink-0 text-tone-green" />
+              {point}
+            </li>
+          ))}
+        </motion.ul>
       </div>
 
       {/* Product mockup */}
