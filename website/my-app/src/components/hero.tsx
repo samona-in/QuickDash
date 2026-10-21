@@ -17,6 +17,10 @@ import {
 
 import { professionals } from "@/lib/data";
 
+// TEMPORARY: the app dashboard mockup is hidden for now. Set to true to bring
+// it back — the markup below is untouched.
+const SHOW_APP_MOCKUP = false;
+
 const tabs = ["Book a service", "My bookings", "Professionals", "Payments"];
 
 const stats = [
@@ -435,77 +439,79 @@ export function Hero() {
       </div>
 
       {/* Product mockup */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="mx-auto mt-14 max-w-6xl"
-      >
-        <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-[0_20px_50px_-24px_rgba(25,25,24,0.2)]">
-          {/* window chrome */}
-          <div className="flex items-center gap-2 border-b border-line bg-panel px-4 py-2.5">
-            <div className="hidden shrink-0 gap-2 sm:flex">
-              <span className="size-3 rounded-full bg-[#ff5f57]" />
-              <span className="size-3 rounded-full bg-[#febc2e]" />
-              <span className="size-3 rounded-full bg-[#28c840]" />
-            </div>
-            <div className="flex flex-1 gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {tabs.map((t, i) => (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => setTab(i)}
-                  aria-pressed={tab === i}
-                  className={`shrink-0 rounded-md px-3 py-1 text-xs font-medium transition-colors ${
-                    tab === i
-                      ? "bg-card text-ink shadow-sm"
-                      : "text-muted hover:text-ink"
-                  }`}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* app body */}
-          <div className="flex text-left">
-            <div className="hidden w-48 shrink-0 border-r border-line p-3 sm:block">
-              {sidebarLinks.map((l) => (
-                <button
-                  key={l.label}
-                  type="button"
-                  onClick={() => {
-                    const i = tabs.indexOf(l.label);
-                    if (i !== -1) setTab(i);
-                  }}
-                  className={`mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-left text-sm transition-colors ${
-                    tabs[tab] === l.label
-                      ? "bg-panel font-medium text-ink"
-                      : "text-muted hover:bg-panel/60"
-                  }`}
-                >
-                  <l.icon className={`size-4 ${l.tone}`} />
-                  {l.label}
-                </button>
-              ))}
+      {SHOW_APP_MOCKUP ? (
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mt-14 max-w-6xl"
+        >
+          <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-[0_20px_50px_-24px_rgba(25,25,24,0.2)]">
+            {/* window chrome */}
+            <div className="flex items-center gap-2 border-b border-line bg-panel px-4 py-2.5">
+              <div className="hidden shrink-0 gap-2 sm:flex">
+                <span className="size-3 rounded-full bg-[#ff5f57]" />
+                <span className="size-3 rounded-full bg-[#febc2e]" />
+                <span className="size-3 rounded-full bg-[#28c840]" />
+              </div>
+              <div className="flex flex-1 gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {tabs.map((t, i) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setTab(i)}
+                    aria-pressed={tab === i}
+                    className={`shrink-0 rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                      tab === i
+                        ? "bg-card text-ink shadow-sm"
+                        : "text-muted hover:text-ink"
+                    }`}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <div className="min-h-[340px] min-w-0 flex-1 p-5 sm:p-7">
-              {/* keyed remount fades the new panel in; no exit animation, so
-                  rapid tab switches can never leave a stale panel mounted */}
-              <motion.div
-                key={tab}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.22, ease: "easeOut" }}
-              >
-                <Panel />
-              </motion.div>
+            {/* app body */}
+            <div className="flex text-left">
+              <div className="hidden w-48 shrink-0 border-r border-line p-3 sm:block">
+                {sidebarLinks.map((l) => (
+                  <button
+                    key={l.label}
+                    type="button"
+                    onClick={() => {
+                      const i = tabs.indexOf(l.label);
+                      if (i !== -1) setTab(i);
+                    }}
+                    className={`mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-left text-sm transition-colors ${
+                      tabs[tab] === l.label
+                        ? "bg-panel font-medium text-ink"
+                        : "text-muted hover:bg-panel/60"
+                    }`}
+                  >
+                    <l.icon className={`size-4 ${l.tone}`} />
+                    {l.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="min-h-[340px] min-w-0 flex-1 p-5 sm:p-7">
+                {/* keyed remount fades the new panel in; no exit animation, so
+                    rapid tab switches can never leave a stale panel mounted */}
+                <motion.div
+                  key={tab}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                >
+                  <Panel />
+                </motion.div>
+              </div>
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      ) : null}
     </section>
   );
 }
