@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, Navigation } from "lucide-react";
 
-import { ScreenHome } from "@/components/app-screens";
+import { appCategories, ScreenHome } from "@/components/app-screens";
 import { AppDashboardMockup } from "@/components/app-dashboard-mockup";
 import { PhoneFrame } from "@/components/ui/phone-frame";
 
@@ -102,9 +102,106 @@ function RotatingService() {
   );
 }
 
+/* ---------------------------- Floating app cards --------------------------- */
+
+/* The service icons the app itself shows — reused here so the floating cards
+   read as the same product the phone is displaying. */
+const iconFor = (label: string) =>
+  appCategories.find((c) => c.label === label)?.image ?? "";
+
+const floatingServices = [
+  { label: "AC & Appliances", position: "-left-12 top-16", delay: 0.5 },
+  { label: "Cleaning", position: "-left-6 bottom-28", delay: 0.65 },
+];
+
+/** A service icon on a small card, drifting gently up and down. */
+function FloatingService({
+  label,
+  position,
+  delay,
+}: {
+  label: string;
+  position: string;
+  delay: number;
+}) {
+  const reduce = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={`absolute z-20 hidden sm:block ${position}`}
+    >
+      <motion.div
+        animate={reduce ? undefined : { y: [0, -8, 0] }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay,
+        }}
+        className="flex items-center gap-2.5 rounded-2xl border border-line bg-card/95 py-2.5 pr-4 pl-2.5 shadow-[0_18px_40px_-22px_rgba(25,25,24,0.45)] backdrop-blur"
+      >
+        <span className="grid size-10 place-items-center rounded-xl bg-panel">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={iconFor(label)}
+            alt=""
+            className="size-7 object-contain"
+          />
+        </span>
+        <span className="text-[13px] font-medium whitespace-nowrap text-ink">
+          {label}
+        </span>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/** The live "professional is on the way" state from the Track screen. */
+function FloatingStatus({ delay }: { delay: number }) {
+  const reduce = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
+      className="absolute bottom-6 left-1/2 -ml-[96px] z-20 sm:top-[42%] sm:right-[-3rem] sm:bottom-auto sm:left-auto sm:ml-0"
+    >
+      <motion.div
+        animate={reduce ? undefined : { y: [0, 8, 0] }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay,
+        }}
+        className="flex items-center gap-3 rounded-2xl border border-line bg-card/95 px-4 py-3 shadow-[0_18px_40px_-22px_rgba(25,25,24,0.45)] backdrop-blur"
+      >
+        <span className="grid size-10 place-items-center rounded-full bg-tint-green text-tone-green">
+          <Navigation className="size-4" />
+        </span>
+        <div>
+          <p className="text-[13px] font-medium whitespace-nowrap text-ink">
+            Ravi is on the way
+          </p>
+          <p className="mt-0.5 flex items-center gap-1.5 text-[11px] text-muted">
+            <span className="dot size-1.5 bg-tone-green" />
+            ETA 14 min
+          </p>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 /* --------------------------------- Section -------------------------------- */
 
 export function Hero() {
+  const reduce = useReducedMotion();
+
   const item = (delay: number) => ({
     initial: { opacity: 0, y: 14 },
     animate: { opacity: 1, y: 0 },
@@ -112,8 +209,13 @@ export function Hero() {
   });
 
   return (
-    <section className="px-5 pt-14 pb-20 sm:px-8 sm:pt-20 lg:pt-24">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-8">
+    <section className="relative overflow-hidden px-5 pt-14 pb-20 sm:px-8 sm:pt-20 lg:pt-24">
+      {/* ambient wash — keeps the page from feeling like an empty canvas */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_55%_at_78%_18%,var(--accent-soft)_0%,transparent_68%)] opacity-70"
+      />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-8">
         {/* ------------------------------ Copy half ----------------------------- */}
         <div className="min-w-0 text-center lg:text-left">
           <motion.div {...item(0)}>
@@ -189,16 +291,31 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="relative min-w-0"
         >
-          {/* soft halo behind the phone */}
-          <span
+          {/* tinted stage the device sits on, with a faint dotted texture */}
+          <div
             aria-hidden
-            className="pointer-events-none absolute top-1/2 left-1/2 h-[420px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft/50 blur-3xl"
+            className="absolute inset-x-0 top-2 bottom-2 rounded-[2.5rem] bg-accent-soft/45 sm:inset-x-2"
           />
-          <div className="relative">
+          <div
+            aria-hidden
+            className="absolute inset-x-0 top-2 bottom-2 rounded-[2.5rem] bg-[radial-gradient(circle,rgba(25,25,24,0.10)_1px,transparent_1px)] bg-[length:20px_20px] sm:inset-x-2"
+          />
+
+          {/* the device is the anchor for the floating cards that hang off it */}
+          <motion.div
+            animate={reduce ? undefined : { y: [0, -10, 0] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            className="relative z-10 mx-auto w-full max-w-[344px]"
+          >
             <PhoneFrame shell="bg-[#f1f4f9]" flush>
               <ScreenHome />
             </PhoneFrame>
-          </div>
+
+            {floatingServices.map((s) => (
+              <FloatingService key={s.label} {...s} />
+            ))}
+            <FloatingStatus delay={0.8} />
+          </motion.div>
         </motion.div>
       </div>
 
@@ -208,7 +325,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-14 max-w-6xl"
+          className="relative mx-auto mt-14 max-w-6xl"
         >
           <AppDashboardMockup />
         </motion.div>

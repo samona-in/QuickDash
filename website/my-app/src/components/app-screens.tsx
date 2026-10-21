@@ -21,7 +21,7 @@ import {
  * walks through all of them), so both always look like the same product.
  */
 
-const categories: { label: string; image: string }[] = [
+export const appCategories: { label: string; image: string }[] = [
   {
     label: "AC & Appliances",
     image:
@@ -173,7 +173,7 @@ export function ScreenHome() {
 
       {/* service categories */}
       <div className="grid min-h-0 flex-1 grid-cols-3 content-start gap-x-2 gap-y-4 overflow-hidden px-4 pt-4">
-        {categories.map(({ label, image }) => (
+        {appCategories.map(({ label, image }) => (
           <div key={label} className="flex flex-col items-center">
             <span className="grid size-[72px] place-items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
