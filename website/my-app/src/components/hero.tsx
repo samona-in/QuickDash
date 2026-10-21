@@ -298,8 +298,7 @@ export function Hero() {
           {...item(0.06)}
           className="font-display mt-4 text-[2.75rem] leading-[1.02] font-extrabold tracking-[-0.03em] text-balance sm:text-6xl lg:text-[4.75rem]"
         >
-          The services you need. <span className="marker text-white">When</span> you
-          need them.
+          The services you need. When you need them.
         </motion.h1>
 
         <motion.p
