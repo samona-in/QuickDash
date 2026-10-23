@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ComponentType } from "react";
+import { useEffect, useState, useSyncExternalStore, type ComponentType } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   Bell,
@@ -77,16 +77,27 @@ export const appCategories: { label: string; image: string }[] = [
 const SEARCH_WORDS = ["electrician", "plumber", "carpenter"];
 const TITLE_WORDS = ["Electrician", "Plumber", "AC repair"];
 
+/* No-op subscription used to tell when hydration has finished. */
+const emptySubscribe = () => () => {};
+
 /** Types each word, pauses, deletes it, then moves on. Returns the current
  *  visible text plus whether a caret should be shown (hidden for reduced motion). */
 function useTypewriter(words: string[]) {
   const reduce = useReducedMotion();
+  // useReducedMotion can differ between server and client; gating on hydration
+  // keeps the first client render identical to the server markup.
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+  const reduced = mounted && reduce;
   const [index, setIndex] = useState(0);
   const [text, setText] = useState("");
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduced) return;
     const word = words[index];
     let delay = deleting ? 45 : 85;
     if (!deleting && text === word) delay = 1400;
@@ -105,9 +116,9 @@ function useTypewriter(words: string[]) {
       }
     }, delay);
     return () => clearTimeout(id);
-  }, [text, deleting, index, reduce, words]);
+  }, [text, deleting, index, reduced, words]);
 
-  return { shown: reduce ? words[0] : text, caret: !reduce };
+  return { shown: reduced ? words[0] : text, caret: !reduced };
 }
 
 function SearchTypewriter() {
